@@ -1,7 +1,6 @@
 ### Informative References
 
 [[iref: didwebs Reference Implementation]]
-[[iref: Hyperledger AnonCreds]]
 [[iref: Overlay Capture Architecture]]
 [[iref: rfc5895]]
 [[iref: StatusList2021]]

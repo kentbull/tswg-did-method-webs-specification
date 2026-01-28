@@ -1,10 +1,11 @@
 ## DID Documents
+
 This section is normative.
 
 1. `did:webs` DID documents MUST be generated or derived from the [[ref: KERI event stream]] of the corresponding AID.
-    1. Processing the KERI event stream of the AID, the generation algorithm MUST read the AID [[ref: KEL]] and any anchored [[ref: TELs]] to produce the DID document. 
+    1. Processing the KERI event stream of the AID, the generation algorithm MUST read the AID [[ref: KEL]] and any anchored [[ref: TELs]] to produce the DID document, including any designated alias ACDCs. 
 2. `did:webs` DID documents MUST be pure JSON. They MAY be processed as JSON-LD by prepending an `@context` if consumers of the documents wish.
-3. All hashes, cryptographic keys, and signatures MUST be represented as [[ref: CESR]] strings. This is an approach similar to multibase, making them self-describing and terse.
+3. All hashes, cryptographic keys, and signatures MUST be represented as [[ref: CESR]] strings. This is an approach similar to [multibase](https://github.com/multiformats/multibase), making them self-describing and terse.
 
 ::: informative Understanding key state and KSN
 To better understand the cryptographically verifiable data structures used, see the implementors guide description of the [KERI event stream chain of custody](#KERI-event-stream-chain-of-custody). To understand the KERI AID commands resulting in the [[ref: KERI Event Stream]] and the corresponding `did:webs` DID document see the original [[ref: didwebs Reference Implementation]] [getting started guide](https://github.com/GLEIF-IT/did-webs-resolver/blob/main/docs/getting_started.md).
@@ -24,13 +25,9 @@ in the Key State Notice (KSN) record.  An example of a KERI KSN record can be se
     "dt": "2021-11-04T12:55:14.480038+00:00",
     "et": "ixn",
     "kt": "1",
-    "k": [
-      "DTH0PwWwsrcO_4zGe7bUR-LJX_ZGBTRsmP-ZeJ7fVg_4"
-    ],
+    "k": ["DTH0PwWwsrcO_4zGe7bUR-LJX_ZGBTRsmP-ZeJ7fVg_4"],
     "nt": 1,
-    "n": [
-      "E6qpfz7HeczuU3dAd1O9gPPS6-h_dCxZGYhU8UaDY2pc"
-    ],
+    "n": ["E6qpfz7HeczuU3dAd1O9gPPS6-h_dCxZGYhU8UaDY2pc"],
     "bt": "3",
     "b": [
       "BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo",
@@ -67,7 +64,7 @@ sections detail the algorithm to follow for each case.
 This section is normative.
 
 1. The value of the `id` property in the DID document MUST be the `did:webs` DID that is being created or resolved.
-1. The value from the `i` field MUST be the value after the last `:` in the [[ref: method-specific identifier]] ([[ref: MSI]]) of the `did:webs` DID, according to the syntax rules in section [Method-Specific Identifier](#method-specific-identifier).
+1. The value from the `i` field of the key state notice MUST be the value after the last `:` in the [[ref: method-specific identifier]] ([[ref: MSI]]) of the `did:webs` DID, according to the syntax rules in section [Method-Specific Identifier](#method-specific-identifier).
 
 ```json
 {
@@ -123,7 +120,7 @@ This section is normative.
 Each verification method for a `did:webs` DID is generated from signing keys located in the [[ref: KERI event stream]] of the controller of the `did:webs` DID.
 
 1. For each key listed in the array value of the `k` field of the KSN, a corresponding verification method MUST be generated in the DID document.
-1. The 'type' property in the verification method for each public key MUST be determined by the algorithm used to generate the public key.
+1. The `type` property in the verification method for each public key MUST be determined by the algorithm used to generate the public key.
 1. The verification method types used MUST be registered in the [DID Specification Registries](https://www.w3.org/TR/did-extensions-properties/#verification-relationships) and added to this specification.
 1. The `id` property of the verification method MUST be a relative DID URL and use the KERI key [[ref: CESR]] value as the value of the fragment component, e.g., `"id": "#<identifier>"`.
 1. The `controller` property of the verification method MUST be the value of the `id` property of the DID document.
@@ -164,32 +161,29 @@ For example, a KERI AID with only the following inception event in its KEL:
 {
   "v":"KERI10JSON00012b_",
   "t":"icp",
-  "d":"ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe","i":"ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
+  "d":"ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
+  "i":"ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
   "s":"0",
   "kt":"1",
   "k":["DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"],
-  "nt":"1",
-  "n":["ELa775aLyane1vdiJEuexP8zrueiIoG995pZPGJiBzGX"],
-  "bt":"0",
-  "b":[],
-  "c":[],
-  "a":[]
+  // ...
 }
 ```
 would result in a DID document with the following verification methods array:
 ```json
-  "verificationMethod": [
-    {
-      "id": "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr", 
-      "type": "JsonWebKey", 
-      "controller": "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe", "publicKeyJwk": {
-        "kid": "DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr", 
-        "kty": "OKP", 
-        "crv": "Ed25519", 
-        "x": "evT4j6Yw3uHpwsw5NEmSR8-4x3S-BA-s6Thjd51oeOs"
-        }
-    }
-  ]
+"verificationMethod": [
+  {
+    "id": "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr", 
+    "type": "JsonWebKey", 
+    "controller": "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe", 
+    "publicKeyJwk": {
+      "kid": "DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr", 
+      "kty": "OKP", 
+      "crv": "Ed25519", 
+      "x": "evT4j6Yw3uHpwsw5NEmSR8-4x3S-BA-s6Thjd51oeOs"
+      }
+  }
+]
 ```
 
 #### Secp256k1
@@ -233,7 +227,7 @@ would result in a DID document with the following verification methods array:
 1. If the current signing keys threshold (the value of the `kt` field) is a string containing a number that is greater than 1, or if it is an array containing fractionally weighted thresholds, then in addition to the verification methods generated according to the rules in the previous sections, another verification method with a type of `ConditionalProof2022` MUST be generated in the DID document. This verification method type is defined [here](https://w3c-ccg.github.io/verifiable-conditions/).
     1. It MUST be constructed according to the following rules:
         1. The `id` property of the verification method MUST be a relative DID URL and use the AID as the value of the fragment component, e.g., `"id": "#<aid>"`.
-        1. The `controller` property of the verification method MUST be the value of the `id` property of the DID document. (Does the method spec need to specify this?)
+        1. The `controller` property of the verification method MUST be the value of the `id` property of the DID document.
         1. If the value of the `kt` field is a string containing a number that is greater than 1 then the following rules MUST be applied:
             1. The `threshold` property of the verification method MUST be the integer value of the `kt` field in the current key state.
             1. The `conditionThreshold` property of the verification method MUST contain an array. For each key listed in the array value of the `k` field in the key state:
@@ -426,10 +420,8 @@ It is important to note that DID document service endpoints are different than t
     For example, the following `rpy` method declares that the AID `EIDJUg2eR8YGZssffpuqQyiXcRVz2_Gw_fcAVWpUMie1` exposes the URL `http://localhost:3902` for scheme `http`:
     ```json
     {
-        "v": "KERI10JSON0000fa_",
+        // ...
         "t": "rpy",
-        "d": "EOGL1KGpOnRaZDIB11uZDCkhHs52_MtMXHd7EqUqwtA3",
-        "dt": "2022-01-20T12:57:59.823350+00:00",
         "r": "/loc/scheme",
         "a": {
           "eid": "EIDJUg2eR8YGZssffpuqQyiXcRVz2_Gw_fcAVWpUMie1",
@@ -441,10 +433,8 @@ It is important to note that DID document service endpoints are different than t
     For example, the AID listed in `cid` is the source of the authorization, the `role` is the role and the AID listed in the `eid` field is the target of the authorization.  So in this example `EOGL1KGpOnRaZDIB11uZDCkhHs52_MtMXHd7EqUqwtA3` is being authorized as an Agent for `EIDJUg2eR8YGZssffpuqQyiXcRVz2_Gw_fcAVWpUMie1`.
     ```json
     {
-        "v": "KERI10JSON000116_",
+        // ...
         "t": "rpy",
-        "d": "EBiVyW6jPOeHX5briFYMQ4CefzqIZHgl-rrcXqj_t9ex",
-        "dt": "2022-01-20T12:57:59.823350+00:00",
         "r": "/end/role/add",
         "a": {
           "cid": "EIDJUg2eR8YGZssffpuqQyiXcRVz2_Gw_fcAVWpUMie1",
@@ -529,7 +519,7 @@ This section is normative.
 
 This section defines an inverse transformation algorithm from a `did:web` DID document to a `did:webs` DID document.
 1. Given a `did:web` DID document, a transformation to a `did:webs` DID document MUST have the following differences:
-    1. The values of the top-level `id` and `controller` properties of the DID document MUST be replaced; the `did:web` prefix string with `did:webs`.
+    1. In the values of the top-level `id` and `controller` properties of the DID document, the transformation MUST replace the `did:web` prefix string with `did:webs`.
     1. The value of the top-level `alsoKnownAs` property MUST replace the entry that is now the new value of the `id` property (using `did:webs`) with the old value of the `id` property (using `did:web`).
     1. All other content of the DID document MUST not be modificatied.
 1. A `did:webs` resolver MUST use this transformation during the [Read (Resolve)](#read-resolve) DID method operation.
@@ -597,7 +587,7 @@ The following blocks contain fully annotated examples of a KERI AID with two eve
 * The Inception event designates multiple public signing keys in the `k` field.
 * The Inception event designates multiple rotation keys in the `n` field.
 * The Interaction event cryptographically anchors data associated with the SAID `EoLNCdag8PlHpsIwzbwe7uVNcPE1mTr-e1o9nCIDPWgM`.
-* The reply 'rpy' events specify an Agent endpoint, etc.
+* The reply `rpy` events specify an Agent endpoint, etc.
 
 Below, we show the KERI Event Stream that will be associated with the resulting generated DID document. These documents were generated for the `example.com` domain with no associated port or additional path defined:
 
@@ -605,7 +595,7 @@ Below, we show the KERI Event Stream that will be associated with the resulting 
 {
     "v": "KERI10JSON0001b7_",
     "t": "icp",
-    "d": "Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
+    "d": "Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M", // controller AID
     "i": "Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
     "s": "0",
     "kt": "2",  // Signing Threshold
@@ -719,7 +709,9 @@ Resulting DID document:
 ```json
   "didDocument": {
     "id": "did:webs:example.com:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
+    "controller": "did:webs:example.com:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
     "alsoKnownAs": [
+      "did:webs:example.com:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
       "did:web:example.com:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
       "did:keri:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M"
     ],
@@ -789,6 +781,9 @@ Resulting DID document:
 :::
 
 ### Basic KERI event details
+
+This section is normative.
+
 [DID Documents](#did-documents) introduced the core [[ref: KERI event stream]] and related DID Document concepts. This section provides additional details regarding the basic types of KERI events and how they relate to the DID document.
 
 #### Key state events
@@ -803,7 +798,7 @@ Resulting DID document:
 1. [[ref: Rotation events]] MUST come after inception events.
 1. If the controller(s) desires future key rotation (transfer) then the rotation event MUST commit to a set of future rotation key hashes.
 1. Rotation events MUST only change the key state to the previously committed to rotation keys.
-1. The last rotation event is the current key state of the AID and MUST be reflected in the DID Document as specified in [Verification Methods](#verification-methods) and [Verification Relationships](#verification-relationships).
+1. Either the inception event or the last rotation event, if any, is the current key state of the AID and MUST be reflected in the DID Document as specified in [Verification Methods](#verification-methods) and [Verification Relationships](#verification-relationships).
 
 ::: informative KERI event references
 You can learn more about the inception event in the [[ref: KERI specification]] and you can see an example inception event.
@@ -820,16 +815,23 @@ This section focuses on delegation relationships between KERI AIDs. [DID Documen
 1. All delegation relationships MUST start with a delegated inception event.
 1. Any change to the [[ref: Delegated inception event]] key state or delegated rotation event key state MUST be the result of a delegated rotation event.
 
-> Delegated [[ref: inception event]]: Establishes a delegated identifier. Either the delegator or the delegate can end the delegation commitment.
 ::: informative Delegation event summaries
 Delegated [[ref: inception event]]: Establishes a delegated identifier. Either the delegator or the delegate can end the delegation commitment.
 
 Delegated [[ref: rotation event]]: Updates the delegated identifier commitment. Either the delegator or the delegate can end the delegation commitment.
 
 See the [[ref: KERI specification]] for an example of a delegated inception and rotation events.
+:::
+
+Delegation service endpoints in the DID document are defined in the next section.
+
+### Service Endpoint Event Details
 
 This section is normative.
 
+In did:webs, KERI-derived service endpoints are defined by **Location Scheme** (`/loc/scheme`) reply (`rpy`) messages and, for roles other than witness, **Endpoint Role Authorization** (`/end/role/add`) `rpy` messages in the [[ref: KERI event stream]]. Location Scheme records declare URL(s) for a given scheme for an AID; Endpoint Role Authorization relates a role (e.g. mailbox, agent) of one AID to another. See [KERI Service Endpoints as DID Document Metadata](#keri-service-endpoints-as-did-document-metadata). 
+
+When the event stream (or equivalent key state and endpoint data) for a `did:webs` DID establishes a witness, mailbox, or agent the DID document MUST include the associated service endpoint(s) in its `service` array.
 
 > Delegated [[ref: rotation event]]: Updates the delegated identifier commitment. Either the delegator or the delegate can end the delegation commitment.
 
@@ -889,19 +891,7 @@ This is an example [[ref: designated aliases]] [[ref: ACDC]] attestation showing
         ]
     },
     "r": {
-        "d": "EEVTx0jLLZDQq8a5bXrXgVP0JDP7j8iDym9Avfo8luLw",
-        "aliasDesignation": {
-            "l": "The issuer of this ACDC designates the identifiers in the ids field as the only allowed namespaced aliases of the issuer's AID."
-        },
-        "usageDisclaimer": {
-            "l": "This attestation only asserts designated aliases of the controller of the AID, that the AID controlled namespaced alias has been designated by the controller. It does not assert that the controller of this AID has control over the infrastructure or anything else related to the namespace other than the included AID."
-        },
-        "issuanceDisclaimer": {
-            "l": "All information in a valid and non-revoked alias designation assertion is accurate as of the date specified."
-        },
-        "termsOfUse": {
-            "l": "Designated aliases of the AID must only be used in a manner consistent with the expressed intent of the AID controller."
-        }
+        // rules section content...
     }
 }
 ```
