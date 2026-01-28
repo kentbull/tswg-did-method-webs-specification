@@ -234,7 +234,7 @@ would result in a DID document with the following verification methods array:
             1. The `conditionThreshold` property of the verification method MUST contain an array. For each key listed in the array value of the `k` field in the key state:
                 1. The relative DID URL corresponding to the key MUST be added to the array value of the `conditionThreshold` property.
         1. If the value of the `kt` field is an array containing fractionally weighted thresholds then the following rules MUST be applied:
-            1. The `threshold` property of the verification method MUST be half of the lowest common denominator (LCD) of all the fractions in the `kt` array.
+            1. The `threshold` property of the verification method MUST be the lowest common denominator (LCD) of all the fractions in the `kt` array.
             1. The `conditionWeightedThreshold` property of the verification method MUST contain an array. For each key listed in the array value of the `k` field in the key state, and for each corresponding fraction listed in the array value of the `kt` field:
                 1. A JSON object MUST be added to the array value of the `conditionWeightedThreshold` property.
                 1. The JSON object MUST contain a property `condition` whose value is the relative DID URL corresponding to the key.
