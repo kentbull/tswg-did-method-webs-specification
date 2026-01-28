@@ -1,5 +1,5 @@
 ## KERI Fundamentals
-This section is informative.
+::: informative KERI Fundamentals
 
 [[ref: Key Event Receipt Infrastructure)]] is a protocol for managing cryptographic keys, identifiers, and associated verifiable data structures. KERI was first described in an [academic paper](https://arxiv.org/abs/1907.02143), and its [specification](https://github.com/trustoverip/tswg-keri-specification) is currently incubated under [Trust Over IP Foundation](https://trustoverip.org/). The open source community that develops KERI-related technologies can be found at https://github.com/WebOfTrust. This section outlines the fundamentals and components of the KERI protocol that are related to the `did:webs` method.
 
@@ -58,3 +58,5 @@ Although _this DID method depends on web technology, KERI itself does not_. It's
 *   **Cryptographic primitives are structured into compact standard representations**: Cryptographic primitives such as keys, hashes, digests, sealed-boxes, signatures, etc... are structured strings with a recognizable data type prefix and a standard representation in the stream. This means they are very terse and there is no need for the variety of representation methods that create interoperability challenges in other DID methods (`publicKeyJwk` versus `publicKeyMultibase` versus other; see the verification material section of the [[ref: DID specification]].
 
 Despite this rich set of features, KERI imposes only light dependencies on developers. The cryptography it uses is familiar and battle-hardened, exactly what one would find in standard cryptography toolkits. For example, the python implementation (keripy) only depends on the `pysodium`, `blake3`, and `cryptography` python packages. Libraries for KERI exist in javascript, rust, and python.
+
+:::

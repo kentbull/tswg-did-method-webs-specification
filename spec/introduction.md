@@ -1,5 +1,5 @@
 ## Introduction
-This section is informative.
+::: informative Introduction
 
 DID methods answer many questions. Two noteworthy ones are:
 
@@ -15,3 +15,18 @@ Furthermore, familiar web mechanisms are almost always operated by corporate IT 
 The `did:webs` method described in this spec separates these two questions and answers them distinctively. _Information about DIDs_ is still published on the web, but its _trustworthiness_ derives from mechanisms entirely governed by individual DID controllers. This preserves most of the delightful convenience of `did:web`, while drastically upgrading security through authentic data that is end-verifiable.
 
 Within the context of `did:webs` the term *decentralized trust* includes verifiability, confidentiality, and privacy, but excludes veracity of the content. The latter is always a matter of (personal) evaluation of available reputational data and verifiable credentials (VCs).
+
+As a preview of syntax, see the below sample did:webs DID:
+
+```
+did:webs:example.com%3A3000:users:alice:EKYGGh-FtAphGmSZbsuBs_t4qpsjYJ2ZqvMKluq9OxmP
+│        │          │       │     │     │
+│        │          │       │     │     └─ AID (KERI identifier)
+│        │          │       │     └─────── Path component
+│        │          │       └───────────── Path component
+│        │          └───────────────────── Port (URL-encoded)
+│        └──────────────────────────────── Host
+└───────────────────────────────────────── Method
+```
+
+:::
