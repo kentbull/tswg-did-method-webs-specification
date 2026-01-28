@@ -834,11 +834,149 @@ In did:webs, KERI-derived service endpoints are defined by **Location Scheme** (
 
 When the event stream (or equivalent key state and endpoint data) for a `did:webs` DID establishes a witness, mailbox, or agent the DID document MUST include the associated service endpoint(s) in its `service` array.
 
-> Delegated [[ref: rotation event]]: Updates the delegated identifier commitment. Either the delegator or the delegate can end the delegation commitment.
+#### Witness Service Endpoint
 
-> See the [[ref: KERI specification]] for an example of a delegated inception and rotation events.
+1. A witness service endpoint is produced when (1) the controller AID's [[ref: KEL]] designates the witness in its witness list (inception or latest rotation event `b` field), and (2) one or more Location Scheme `rpy` messages with `r` `/loc/scheme` declare URLs for that witness AID (`a.eid`) per scheme. The witness role is thus established by key state, not by an Endpoint Role Authorization `rpy`. 
+2. The DID document service entry SHALL use `type` `witness`, `id` relative to the DID of the form `#<witness-aid>/witness`, and `serviceEndpoint` as an object whose keys are scheme names and values are the declared URLs.
 
-#### Delegator service endpoint
+Location Scheme examples (witness AID declares https and tcp URLs):
+
+```json
+{
+  // ...
+  "t": "rpy",
+  "r": "/loc/scheme",
+  "a": {
+    "eid": "BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q",
+    "scheme": "https",
+    "url": "https://wit1.testnet.gleif.org:5641/"
+  }
+}
+```
+
+```json
+{
+  // ...
+  "t": "rpy",
+  "r": "/loc/scheme",
+  "a": {
+    "eid": "BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q",
+    "scheme": "tcp",
+    "url": "tcp://wit1.testnet.gleif.org:5631/"
+  }
+}
+```
+
+Resulting witness service entry:
+
+```json
+{
+  "id": "#BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q/witness",
+  "type": "witness",
+  "serviceEndpoint": {
+    "https": "https://wit1.testnet.gleif.org:5641/",
+    "tcp": "tcp://wit1.testnet.gleif.org:5631/"
+  }
+}
+```
+
+#### Mailbox Service Endpoint
+
+1. A mailbox service endpoint is produced when (1) an Endpoint Role Authorization `rpy` with `r` `/end/role/add` and `a.role` `mailbox` designates the mailbox AID (`a.eid`) for the controller AID (`a.cid`), and (2) one or more Location Scheme `rpy` messages with `r` `/loc/scheme` declare URLs for that mailbox AID. Implementations obtain mailbox endpoints from Endpoint Role data (e.g. KERI `ends` table keyed by controller and role) plus Location Scheme data (e.g. `locs` table). 
+2. The DID document service entry SHALL use `type` `mailbox`, `id` relative to the DID of the form `#<mailbox-aid>/mailbox`, and `serviceEndpoint` as an object mapping scheme names to URLs (or a single URL when only one scheme applies).
+
+Endpoint Role Authorization example (controller designates mailbox):
+
+```json
+{
+  // ...
+  "t": "rpy",
+  "r": "/end/role/add",
+  "a": {
+    "cid": "Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
+    "role": "mailbox",
+    "eid": "BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q"
+  }
+}
+```
+
+Location Scheme example (mailbox AID declares http URL):
+
+```json
+{
+  // ...
+  "t": "rpy",
+  "r": "/loc/scheme",
+  "a": {
+    "eid": "BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q",
+    "scheme": "http",
+    "url": "http://mailbox.testnet.gleif.org:5635/"
+  }
+}
+```
+
+Resulting mailbox service entry:
+
+```json
+{
+  "id": "#BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q/mailbox",
+  "type": "mailbox",
+  "serviceEndpoint": {
+    "https": "https://mailbox.testnet.gleif.org:5635/",
+  }
+}
+```
+
+#### Agent Service Endpoint
+
+1. An agent service endpoint is produced when (1) an Endpoint Role Authorization `rpy` with `r` `/end/role/add` and `a.role` `agent` designates the agent AID (`a.eid`) for the controller AID (`a.cid`), and (2) one or more Location Scheme `rpy` messages with `r` `/loc/scheme` declare URLs for that agent AID. Implementations obtain agent endpoints from Endpoint Role data (e.g. KERI `ends` table) plus Location Scheme data (e.g. `locs` table). 
+2. The DID document service entry SHALL use `type` `KeriAgent` (or `agent` where registered) and `serviceEndpoint` as an object mapping scheme names to URLs or a single URL, consistent with [KERI Service Endpoints as DID Document Metadata](#keri-service-endpoints-as-did-document-metadata).
+
+Endpoint Role Authorization example (controller designates agent):
+
+```json
+{
+  // ...
+  "t": "rpy",
+  "r": "/end/role/add",
+  "a": {
+    "cid": "Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M",
+    "role": "agent",
+    "eid": "BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q"
+  }
+}
+```
+
+Location Scheme example (agent AID declares http URL):
+
+```json
+{
+  // ...
+  "t": "rpy",
+  "r": "/loc/scheme",
+  "a": {
+    "eid": "BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q",
+    "scheme": "http",
+    "url": "http://agent.testnet.gleif.org:5636/"
+  }
+}
+```
+
+Resulting agent service entry:
+
+```json
+{
+  "id": "#BJqHtDoLT_K_XyOgr2ejBOqD9276TYMTg2EEqWKs-V0q/agent",
+  "type": "agent",
+  "serviceEndpoint": {
+    "https": "https://agent.testnet.gleif.org:5636/",
+  }
+}
+```
+
+#### Delegator Service Endpoint
+
+If the first event in the [[ref: KEL]] for a `did:webs` DID is a delegated inception event of type `dip` then it MUST include a delegator service endpoint in its DID document as follows.
 
 1. A delegated AID MUST include a service endpoint in its DID document that references its delegator.
 1. When a delegator service endpoint is present, it MUST conform to the following requirements:
@@ -847,7 +985,7 @@ When the event stream (or equivalent key state and endpoint data) for a `did:web
     1. The service `serviceEndpoint` property MUST be a valid [[ref: OOBI]] URL that resolves to the delegator's AID.
 1. The delegator service endpoint enables verifiers to discover and validate the delegation relationship by retrieving the delegator's [[ref: KEL]].
 
-For example, a delegated AID service array MUST include the following delegator service endpoint:
+For example, a `did:webs` DID that is a delegated AID MUST include, in its `service` array of the DID document, a delegator service endpoint similar to the following:
 
 ```json
 {
@@ -864,7 +1002,7 @@ In this example, the `id` field contains the [[ref: SAID]] of the seal in the de
 :::
 
 ### Designated Aliases
-1. An AID controller SHALL specify the [[ref: designated aliases]] that will be listed in the `equivalentId` and `alsoKnownAs` properties by issuing a Designated aliases verifiable attestation.
+1. An AID controller SHALL specify the [[ref: designated aliases]] that will be listed in the `equivalentId` and `alsoKnownAs` properties by issuing a Designated aliases verifiable attestation as an ACDC.
     1. This attestation MUST contain a set of [[ref: AID controlled identifiers]] that the AID controller authorizes.
     1. If the identifier is a `did:webs` identifier then it is truly equivalent and MUST be listed in the `equivalentId` property.
     1. If the identifier is a DID then it MUST be listed in the `alsoKnownAs` property.
