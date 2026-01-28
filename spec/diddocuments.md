@@ -89,11 +89,7 @@ This section is normative.
 This section is normative.
 
 1. The `alsoKnownAs` property in the root of the DID document MAY contain any DID that has the same AID. See the [[ref: designated aliases]] section for information on how an AID anchors the `alsoKnownAs` identifiers to their [[ref: KERI event stream]].
-1. `did:webs` DIDs MUST serve the `did:webs` as an `alsoKnownAs` identifier.
-1. The corresponding `did:web` DIDs MUST be included in a designated aliases ACDC before being added to the `alsoKnownAs` section. If no `did:web` DIDs are in any un-revoked designated alias ACDCs for this identifier then they SHOULD NOT be included in the `alsoKnownAs` section.
-   ::: informative
-   A consumer of a DID document can only know that a given `did:web` DID is trustable and committed to by the controller of the AID supporting a `did:webs` DID only when that `did:web` DID is included in an un-revoked designated aliases ACDC. Because a malicious DID resolver host could inject fraudulent `did:web` DIDs into a DID document then the consumer of a `did:webs` DID document should only trust `did:web` DIDs that are found in an un-revoked designated aliases ACDC.
-   ::: 
+1. `did:webs` DIDs MUST serve the `did:webs` and corresponding `did:web`as an `alsoKnownAs` identifier.
 1. `did:webs` DIDs MUST provide the corresponding `did:keri` as an `alsoKnownAs` identifier.
 1. The same AID MAY be associated with multiple `did:webs` DIDs, each with a different [[ref: host]] and/or path, but with the same AID.
 1. `did:webs` DIDs MUST be listed in the Designated aliases attestation of the AID.
