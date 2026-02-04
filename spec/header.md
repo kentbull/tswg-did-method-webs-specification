@@ -25,7 +25,7 @@ In order to further validate and improve the specification and to demonstrate in
 - [Darrell O'Donnell](https://github.com/darrellodonnell), [Continuum Loop Inc.](https://www.continuumloop.com)
 - [Jonathan Rayback](https:/github.com/jrayback), [Future Forge Innovation LLC](https://futureforg.ing)
 - [Henk van Cann](https:/github.com/henkvancann), [Blockchainbird](https://blockchainbird.org)
-
+- [Kent Bull](https://github.com/kentbull), [Kent Bull](https://kentbull.com)
 <!-- -->
 
 **Participate:**

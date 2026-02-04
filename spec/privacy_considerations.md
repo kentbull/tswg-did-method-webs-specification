@@ -1,5 +1,5 @@
 ## Privacy Considerations
-This section is informative.
+::: informative Privacy Considerations
 
 This section addresses the privacy considerations from [RFC6973](https://datatracker.ietf.org/doc/html/rfc6973) section 5.
 For privacy considerations related to web infrastructure, see [`did:web` privacy considerations](https://w3c-ccg.github.io/did-method-web/#security-and-privacy-considerations).
@@ -57,3 +57,5 @@ No data beyond the Key State for the identifier is provided by this DID method.
 This DID method provides no opportunity for [correlation](#correlation), [identification](#identification) or
 [disclosure](#disclosure) and therefore there is no opportunity to exclude the controller from knowing about data that others have
 about them.
+
+:::

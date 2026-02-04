@@ -68,7 +68,7 @@ The following security concepts are used to secure the data, files, signatures a
         1. For a `did:webs` resolver to be trusted it SHOULD use KRAM to access the service endpoints providing KERI event streams for verification of the DID document.
 
 #### Reducing the attack surface
-This section is informative.
+::: informative Reducing the attack surface
 
 The above considerations have lead us to focus on KEL backed DID document blocks and data (designated alias ACDCs, signatures, etc) so that the trusted (local) did:webs resolver is secure. Any future features that could leverage BADA-RUN and [[ref: KRAM]] should be considered carefully according to the above considerations.
 
@@ -76,3 +76,5 @@ See the implementors guide for more details about KEL backed, BADA-RUN, and KRAM
 * [[ref: On-Disk Storage]]
 * [Alignment of Information to Security Posture](#alignment-of-information-to-security-posture)
 * [Applying the concepts of KEL, BADA-RUN, and KRAM](#applying-the-concepts-of-kel)
+
+:::
