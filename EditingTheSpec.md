@@ -11,14 +11,14 @@ To contribute changes to the specification, please
 The specification source consists of the markdown files listed in
 [specs.json](/specs.json) and found in the [`/spec`](/spec) folder. The
 specification is automatically rendered (using
- [Spec-Up](https://github.com/decentralized-identity/spec-up)) to the `/docs`
+ [Spec-Up](https://github.com/trustoverip/spec-up-t)) to the `/docs`
  folder of the `gh-pages` branch of this repository on each pull request merge
  (using a GitHub Action), and then published (using GitHub Pages).
 
 ## Testing your Edits Locally
 
 Full guidance for using Spec-Up is in its
-[repository](https://github.com/decentralized-identity/spec-up). The short
+[repository](https://github.com/trustoverip/spec-up-t). The short
 version of the instructions to render this specification locally while you are
 editing is:
 

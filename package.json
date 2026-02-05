@@ -1,34 +1,52 @@
 {
-  "name": "spec-up",
-  "version": "0.10.6",
-  "license": "Apache 2.0",
-  "description": "Technical specification drafting tool that generates rich specification documents from markdown.",
+  "name": "did-webs-spec",
+  "version": "0.9.17",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "ToIP KSWG did:webs specification written in Markdown and converted to HTML using the Spec-Up-T tool.",
+  "author": "Phil Feairheller <phil@healthkeri.com> (https://healthkeri.com)",
+  "contributors": [
+    "Charles Lanahan <charles@lanahan.com> (https://lanahan.com)",
+    "Darrell O'Donnell <darrell@continuumloop.com> (https://continuumloop.com)",
+    "Daniel Hardman <daniel@provenant.net> (https://provenant.net)",
+    "Henk van Cann <henk@blockchainbird.org> (https://blockchainbird.org)",
+    "Jonathan Rayback <jonathan@futureforge.com> (https://futureforge.com)",
+    "Kent Bull <kent@kentbull.com> (https://kentbull.com)",
+    "Kevin Griffin <kevin@gleif.org> (https://gleif.org)",
+    "Lance Byrd <lance@byrd.com> (https://rootsid.com)",
+    "Markus Sabadello <markus@danubetech.com> (https://danubetech.com)",
+    "Nuttawut Kongsuwan <nuttawut@finema.co> (https://finema.co)",
+    "Sam Smith <sam@prosapien.com> (https://prosapien.com)"
+  ],
+  "homepage": "https://github.com/trustoverip/tswg-did-method-webs-specification#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trustoverip/tswg-did-method-webs-specification.git",
+    "directory": "."
+  },
+  "bugs": {
+    "url": "https://github.com/trustoverip/tswg-did-method-webs-specification/issues"
+  },
+  "keywords": [
+    "keri",
+    "acdc",
+    "cesr",
+    "did",
+    "specification",
+    "did-webs-specification"
+  ],
   "dependencies": {
-    "dotenv": "^16.4.7",
-    "spec-up-t": "^1.6.2"
+    "dotenv": "^17.2.3",
+    "spec-up-t": "^1.6.7"
   },
   "overrides": {
     "braces": ">=3.0.3",
     "diff": ">=8.0.3",
     "gulp": ">=5.0.1"
   },
-  "author": "Daniel Buchner",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/decentralized-identity/spec-up.git"
-  },
-  "keywords": [
-    "spec",
-    "specs",
-    "markdown",
-    "editor",
-    "standards"
-  ],
-  "homepage": "https://github.com/decentralized-identity/spec-up#readme",
-  "bugs": {
-    "url": "https://github.com/decentralized-identity/spec-up/issues"
-  },
   "scripts": {
+    "build": "npm run render",
+    "preview": "npm run render && open docs/index.html",
     "edit": "node -e \"require('spec-up-t')()\"",
     "render": "node --no-warnings -e \"require('spec-up-t/index.js')({ nowatch: true })\"",
     "dev": "node -e \"require('spec-up-t')({ dev: true })\"",

@@ -1,4 +1,4 @@
-ToIP `did:webs` Method Specification v0.9.16
+ToIP `did:webs` Method Specification v0.9.17
 ==================
 
 **Specification Status**: Implementors Draft
