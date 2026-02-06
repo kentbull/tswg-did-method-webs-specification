@@ -88,11 +88,28 @@ This section is normative.
 
 This section is normative.
 
-1. The `alsoKnownAs` property in the root of the DID document MAY contain any DID that has the same AID. See the [[ref: designated aliases]] section for information on how an AID anchors the `alsoKnownAs` identifiers to their [[ref: KERI event stream]].
-1. `did:webs` DIDs MUST serve the `did:webs` as an `alsoKnownAs` identifier.
-1. The corresponding `did:web` DIDs MUST be included in a designated aliases ACDC before being added to the `alsoKnownAs` section. If no `did:web` DIDs are in any un-revoked designated alias ACDCs for this identifier then they SHOULD NOT be included in the `alsoKnownAs` section.
+1. The `alsoKnownAs` property in the root of the DID document MAY contain any DID that has the same AID. 
+   ::: informative designated aliases reference
+   See the [[ref: designated aliases]] section for information on how an AID anchors the `alsoKnownAs` identifiers to their [[ref: KERI event stream]].
+   ::: 
+   1. As long as the identifier is resolvable, a designated aliases ACDC containing a given identifier MUST always be present in the `keri.cesr` stream in order for any identifier to be included in the `alsoKnownAs` section of a `did:webs` DID document. 
+      ::: informative transformation rules note
+      Presence of designated alias ACDCs containing both `did:webs` and `did:web` identifiers are required to support the transformation rules between `did:webs` and `did:web` versions of a `did:webs` DID document while adhering to the security posture of KERI and ACDC.
+
+      One potential way to implement this requirement is to ensure that resolving a given version of a `did:webs` DID document via the `versionId` parameter will return the DID document as of a given sequence number by analyzing the designated aliases ACDCs that were valid and unrevoked at that time.
+      :::
+   
+1. The `did:webs` version of the DID document MUST include the `did:web` version of the DID as an `alsoKnownAs` identifier, meaning it must also be in a valid, un-revoked designated aliases ACDC present in the `keri.cesr` stream.
+1. The `did:web` version of the DID document MUST include the `did:webs` version of the DID as an `alsoKnownAs` identifier, meaning it must also be in a valid, un-revoked designated aliases ACDC present in the `keri.cesr` stream.
+1. In order for the `did:webs` DID document to be valid, the `keri.cesr` stream MUST contain at least ONE designated aliases ACDC in which the DNS name and path for the `did:webs` identifier are committed to for both the `did:webs` and `did:web` versions of the identifier.
    ::: informative
-   A consumer of a DID document can only know that a given `did:web` DID is trustable and committed to by the controller of the AID supporting a `did:webs` DID only when that `did:web` DID is included in an un-revoked designated aliases ACDC. Because a malicious DID resolver host could inject fraudulent `did:web` DIDs into a DID document then the consumer of a `did:webs` DID document should only trust `did:web` DIDs that are found in an un-revoked designated aliases ACDC.
+   Committed to means placed in a designated aliases ACDC.
+
+   This implies that the `did.json` for both the `did:webs` and `did:web` versions of a `did:webs` DID document will always contain a reciprocal link to one another that is also committed to by an event anchored into the KEL of the DID controller.
+
+   A consumer of a DID document can only know that a given `did:web` DID is trustable and committed to by the controller of the AID supporting a `did:webs` DID only when that `did:web` DID is included in an un-revoked designated aliases ACDC. 
+   
+   This protects against DID document malleability attacks where a malicious DID resolver host could inject fraudulent `did:web` DIDs into a DID document. As such, the consumer of a `did:webs` DID document should only trust `did:web` DIDs that are found in an un-revoked designated aliases ACDC present in the `keri.cesr` stream.
    ::: 
 1. `did:webs` DIDs MUST provide the corresponding `did:keri` as an `alsoKnownAs` identifier.
 1. The same AID MAY be associated with multiple `did:webs` DIDs, each with a different [[ref: host]] and/or path, but with the same AID.
