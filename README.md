@@ -1,8 +1,22 @@
-# tswg-did-method-webs-specification
+# did:webs DID method ToIP specification
 
-A spec for the `did:webs` [DID method](https://w3c-ccg.github.io/did-spec/#specific-did-method-schemes).
+The speccification for the `did:webs` [DID method](https://w3c-ccg.github.io/did-spec/#specific-did-method-schemes).
 
-The spec is written in W3C's [respec](https://dev.w3.org/2008/video/mediaann/ReSpec.js/documentation.html) format using DIF's [Spec-Up Tool](https://github.com/decentralized-identity/spec-up).
-To browse the spec, see the [rendering on github pages](https://trustoverip.github.io/tswg-did-method-webs-specification/index.html). To contribute to the spec, submit PRs that modify the .md files that are used to generate the .html files in this folder.
+To browse the spec, see the [rendering on github pages](https://trustoverip.github.io/tswg-did-method-webs-specification/index.html).
 
-Before submitting a PR, please see the [Editing The Spec](./EditingTheSpec.md) document for guidance on generating the specification locally for review.
+## Viewing the spec:
+
+```bash
+git clone git@github.com:trustoverip/tswg-did-method-webs-specification.git
+cd tswg-did-method-webs-specification
+npm install
+npm run render
+open docs/index.html
+```
+
+## Details
+
+The spec is written in W3C's [respec](https://dev.w3.org/2008/video/mediaann/ReSpec.js/documentation.html) format using TrustOverIP's [Spec-Up-T Tool](https://github.com/trustoverip/spec-up-t).
+
+To contribute to the spec, submit PRs that modify the .md files in the `spec/` folder.
+
