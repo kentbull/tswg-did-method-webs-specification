@@ -28,12 +28,12 @@ host = *( ALPHA / DIGIT / "-" / "." )
 ; In actual implementations replace with a mature host parsing library.
 
 ; 'pct-encoded-colon' represents a percent-encoded colon
-pct-encoded-colon = "%3A" / "%3a"
+pct-encoded-colon = "%3A" / "%3a" ; Percent encoding for ':'
 
 ; 'port' number (simplified version)
 port = 1*5(DIGIT)
 
-; 'path' definition (path segment)
+; 'path' definition
 path = 1*(ALPHA / DIGIT / "-" / "_" / "~" / "." / "/")
 
 aid = said
