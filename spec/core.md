@@ -18,29 +18,43 @@ Note: when pronounced aloud, “webs” should become two syllables: the word �
 1. The `did:webs` [[ref: method-specific identifier]] MUST have two parts, a [[ref: host]] with an optional path (identical to `did:web`), plus a KERI AID (autonomic identifier) that is always the final component of the path.
 1. The ABNF definition of a `did:webs` DID MUST be as follows:
 
-    ```abnf
-    webs-did = "did:webs:" host [pct-encoded-colon port] *(":" path) ":" aid
+```abnf
+; did:webs DID structure
+webs-did = "did:webs:" host [pct-encoded-colon port] *(":" path) ":" aid
 
-    ; 'host' as defined in RFC 1035 and RFC 1123
-    host = *( ALPHA / DIGIT / "-" / "." )  ; Simplified representation, actual RFCs
-                                          ; have more complex rules for domains and IP addresses.
-                                          ; IN ACTUAL IMPLEMENTATIONS REPLACE WITH A MATURE 
-                                          ; HOST PARSING LIBRARY.
+; 'host' as defined in RFC 1035, RFC 1123, and RFC 2181
+host = *( ALPHA / DIGIT / "-" / "." )
+; Simplified representation; actual RFCs have more complex rules for domains and IP addresses.
+; In actual implementations replace with a mature host parsing library.
 
-    ; 'pct-encoded-colon' represents a percent-encoded colon
-    pct-encoded-colon = "%3A" / "%3a"  ; Percent encoding for ':'
+; 'pct-encoded-colon' represents a percent-encoded colon
+pct-encoded-colon = "%3A" / "%3a" ; Percent encoding for ':'
 
-    ; 'port' number (simplified version)
-    port = 1*5(DIGIT)
+; 'port' number (simplified version)
+port = 1*5(DIGIT)
 
-    ; 'path' definition
-    path = 1*(ALPHA / DIGIT / "-" / "_" / "~" / "." / "/")
+; 'path' definition
+path = 1*(ALPHA / DIGIT / "-" / "_" / "~" / "." / "/")
 
-    ; 'aid' as base64 encoded value
-    aid = 1*(ALPHA / DIGIT / "+" / "/" / "=") ; Base64 characters
+aid = said
 
-    ; ALPHA, DIGIT are standard ABNF primitives for alphabetic and numeric characters
-    ```
+; AID is a KERI SAID; SAID structure:
+said = said-256 / said-512
+
+; Base64URLSafe characters (RFC 4648, excluding padding)
+base64urlsafe = ALPHA / DIGIT / "-" / "_"
+
+; The complete SAID primitive MUST conform to CESR code table [2], CESR spec Section 11.4.
+; The following currently defined digest codes, for example, produce SAIDs of 44 or 88 characters total.
+
+; 256-bit SAIDs: 44 characters total (1 char code + 43 Base64URLSafe)
+one-char-code = "E" / "F" / "G" / "H" / "I"
+said-256 = one-char-code 43base64urlsafe
+
+; 512-bit SAIDs: 88 characters total (2 char code + 86 Base64URLSafe)
+two-char-code = "0D" / "0E" / "0F" / "0G"
+said-512 = two-char-code 86base64urlsafe
+```
 
 1. The [[ref: host]] MUST abide by the formal rules describing valid syntax found in [[ref: RFC1035]], [[ref: RFC1123]], and [[ref: RFC2181]].
 1. A port MAY be included and the colon MUST be percent encoded, like `%3a`, to prevent a conflict with paths.
