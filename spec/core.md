@@ -45,7 +45,7 @@ said = said-256 / said-512
 base64urlsafe = ALPHA / DIGIT / "-" / "_"
 
 ; The complete SAID primitive MUST conform to CESR code table [2], CESR spec Section 11.4.
-; The following currently defined digest codes, for example, produce SAIDs of 44 or 88 characters total.
+; The following currently defined digest codes produce 256-bit or 512-bit SAIDs of 44 or 88 characters total.
 
 ; 256-bit SAIDs: 44 characters total (1 char code + 43 Base64URLSafe)
 one-char-code = "E" / "F" / "G" / "H" / "I"
