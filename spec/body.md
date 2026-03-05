@@ -86,11 +86,10 @@ the inverse is not true--a `did:webs` must include an AID.
 ### Target System(s)
 
 1. As with `did:web`, `did:webs` MUST read data from whatever web server is
-   referenced when the [[ref: host]] portion of one of its DID is resolved.
+   referenced when the [[ref: host]] portion of one of its DIDs is resolved.
 1. A `did:webs` DID MUST resolve to a [[ref: DID document]] using a simple
    text transformation to an HTTPS URL in the same way as a `did:web` DID.
-1. A `did:web` DID and `did:webs` DID with the same [[ref: method-specific
-   identifier]] SHOULD return the same DID document, except for minor
+1. A `did:web` DID and `did:webs` DID with the same [[ref: method-specific-identifier]] SHOULD return the same DID document, except for minor
    differences in the `id`, `controller`, and `alsoKnownAs` top-level
    properties that pertain to the identifiers themselves.
 1. As with `did:web`, the location of the `did:webs` [[ref: DID document]]
@@ -197,7 +196,7 @@ proven that they have the same controller(s).
        resolution metadata.
 
 1. The following resolution paths that `did:webs` identfiers SHALL leverage
-   to help in the face of resolution uncertainty includes:
+   to help in the face of resolution uncertainty include:
     1. The `did:webs` DID SHALL provide other [[ref: designated aliases]]
        DID(s) that are anchored to the [[ref: KERI event stream]].
     1. When a `did:webs` DID is permanently moved to some other location the
@@ -307,7 +306,7 @@ specification.
        stream]] resources unavailable at the location where they have been
        published.
         ::: informative Rationale for not removing DID files
-        This is considered to be a bad approach, as those resolving the DID
+        Removing the DID resources is considered to be a bad approach, as those resolving the DID
         will not be able to determine if the web service is offline or the
         DID has been deactivated.
         :::
