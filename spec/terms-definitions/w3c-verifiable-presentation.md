@@ -1,3 +1,4 @@
-[[def: w3c-verifiable-presentation, W3C - verifiable presentation, verifiable presentation, verifiable presentations]]
+[[def: w3c-verifiable-presentation, W3C - verifiable presentation,
+   verifiable presentation, verifiable presentations]]
 
-~ See (https://www.w3.org/TR/vc-data-model/#presentations-0).
+~ See (<https://www.w3.org/TR/vc-data-model/#presentations-0>).

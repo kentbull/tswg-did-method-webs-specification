@@ -1,6 +1,5 @@
 ## References
 
-
 ### Normative References
 
 [[iref: Data Integrity Proof]]
@@ -11,13 +10,15 @@
 [[iref: RFC2181]]
 
 #### Trust-over-IP
-[[iref: ACDC specification]] 
+
+[[iref: ACDC specification]]
 [[iref: CESR specification]]
 [[iref: CESR Proof Signatures]]
 [[iref: Key Event Receipt Infrastructure]]
 [[iref: ACDC IPEX]]
 
 #### W3C
+
 [[iref: didweb specification]]
 [[iref: Decentralized Identifiers]]
 [[iref: DID spec registries]]
