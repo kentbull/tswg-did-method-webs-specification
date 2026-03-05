@@ -1,6 +1,4 @@
-[[def: toip-cesr-spec, Trust over IP - Composable Event Streaming
-
-~    Representation (CESR), CESR specification, CESR protocol]]
+[[def: toip-cesr-spec, Trust over IP - Composable Event Streaming Representation (CESR), CESR specification, CESR protocol]]
 
 ~ The
 ~    [CESR specification](https://trustoverip.github.io/kswg-cesr-specification/)

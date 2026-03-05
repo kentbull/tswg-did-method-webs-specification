@@ -1,6 +1,4 @@
-[[def: key-event-receipt-infrastructure, key event receipt infrastructure,
-
-~    KERI]]
+[[def: key-event-receipt-infrastructure, key event receipt infrastructure, KERI]]
 
 ~ A protocol that provides an identity system-based secure overlay for the
 ~    internet and uses [[ref: AIDs]] as the primary roots of trust, as defined by

@@ -1,6 +1,4 @@
-[[def: KERI-request-authentication-mechanism, KERI Request Authentication
-
-~    Mechanism, KRAM]]
+[[def: KERI-request-authentication-mechanism, KERI Request Authentication Mechanism, KRAM]]
 
 ~ A non-interactive replay attack protection algorithm that uses a sliding
 ~    window of date-time stamps and key state (similar to the tuple in

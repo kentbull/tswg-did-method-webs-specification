@@ -334,7 +334,7 @@ see the implementors guide description of the
 [KERI event stream chain of custody](#KERI-event-stream-chain-of-custody).
 To understand the KERI AID commands resulting in the
 [[ref: KERI Event Stream]] and the corresponding `did:webs` DID document see
-the original [[ref: didwebs Reference Implementation]]
+the original [[ref: did:webs Reference Implementation]]
 [getting started guide](https://github.com/GLEIF-IT/did-webs-resolver/blob/main/docs/getting_started.md).
 
 In KERI the calculated values that result from processing the
@@ -1133,7 +1133,7 @@ DID document to a `did:webs` DID document.
 ::: informative Full Example
 
 To walk through a real-world example, please see the GETTING STARTED guide in
-the [[ref: didwebs Reference Implementation]] as it walks users through many
+the [[ref: did:webs Reference Implementation]] as it walks users through many
 did:webs related tasks (and associated KERI commands) to demonstrate how they
 work together.
 
@@ -2510,7 +2510,7 @@ KERI event stream to the DID Document properties compose the core of the
 did:webs resolver logic.  Understanding the optimal way to update and
 maintain the KERI event stream (publish static keri.cesr files, dynamically
 generate the keri.cesr resource, etc) is beyond the scope of the spec,
-but the [[ref: didwebs Reference Implementation]] of the resolver
+but the [[ref: did:webs Reference Implementation]] of the resolver
 demonstrate some of these techniques. The important concept is that the
 entire KERI event stream is used to produce and verify the DID document.
 :::
@@ -2521,7 +2521,7 @@ entire KERI event stream is used to produce and verify the DID document.
 This section is informative: Below is an example highlighting how verifiable
 data is anchored to a [[ref: KEL]] using a [[ref: TEL]]. We use this spec's
 [[ref: designated aliases]] feature as a real-world example. You can walk
-through this example in the [[ref: didwebs Reference Implementation]].
+through this example in the [[ref: did:webs Reference Implementation]].
 The attestation (self-issued credential) is as follows:
 
 ```json
@@ -3018,7 +3018,7 @@ https://www.iana.org/assignments/provisional-standard-media-types/provisional-st
 
 ### Informative section
 
-[[iref: didwebs Reference Implementation]]
+[[iref: did:webs Reference Implementation]]
 [[iref: Overlay Capture Architecture]]
 [[iref: rfc5895]]
 [[iref: StatusList2021]]

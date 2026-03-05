@@ -1,6 +1,4 @@
-[[def: compact-event-streaming-representation, compact event streaming
-
-~    representation, CESR]]
+[[def: compact-event-streaming-representation, compact event streaming representation, CESR]]
 
 ~ An encoding format that enables round-trip text-binary conversion of
 ~    concatenated cryptographic primitives and general data types, as defined by

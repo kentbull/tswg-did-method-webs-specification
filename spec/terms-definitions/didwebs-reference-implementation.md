@@ -1,6 +1,4 @@
-[[def: didwebs-reference-implementation, did:webs Reference Implementation,
-
-~    did:web Specification]]
+[[def: did:webs-reference-implementation, did:webs Reference Implementation, did:web Specification]]
 
 ~ See the [python reference implementation of did:webs]
 ~    (<https://github.com/GLEIF-IT/did-webs-resolver>).

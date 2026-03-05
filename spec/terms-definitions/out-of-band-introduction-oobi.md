@@ -1,6 +1,4 @@
-[[def: out-of-band-introduction, out-of-band introduction, OOBI, OOBIs,
-
-~    OOBI specification]]
+[[def: out-of-band-introduction, out-of-band introduction, OOBI, OOBIs, OOBI specification]]
 
 ~ A protocol for discovering verifiable information on an [[ref: AID]] or a
 ~    [[ref: SAID]], as defined by the [[ref: KERI specification]]. The OOBI by

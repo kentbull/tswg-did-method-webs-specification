@@ -1,8 +1,6 @@
-[[def: authentic-chained-data-container, authentic chained data container, ACDC,
+[[def: authentic-chained-data-container, authentic chained data container, ACDC, ACDCs]]
 
-~    ACDCs]]
-
-~ a variant of [[ref: the Verifiable Credential (VC) specification]] that
+~ a variant of [[ref: Verifiable Credentials Data Model]] that
 ~    inherits the security model derived from [[ref: KERI]], as defined by the
 ~    [ACDC specification](https://trustoverip.github.io/kswg-acdc-specification/).
 ~    See [[xref: keri1, authentic-chained-data-container, authentic chained data
