@@ -96,6 +96,8 @@ did:webs:example.com%3A3000:users:alice:EKYGGh-FtAphGmSZbsuBs_t4qpsjYJ2ZqvMKluq9
 └───────────────────────────────────────── Method
 ```
 
+:::
+
 ## Status of This Memo
 
 Information about the current status of this document, any errata,
