@@ -1747,6 +1747,7 @@ attestation above, contains:
     }
 }
 ```
+:::
 
 ## DID Parameters
 
@@ -1870,6 +1871,8 @@ would result in a DID document with the following verification methods array:
   ]
 }
 ```
+
+:::
 
 ## DID Metadata
 
@@ -2162,6 +2165,8 @@ See the implementors guide for more details about KEL backed, BADA-RUN, and KRAM
 * [Alignment of Information to Security Posture](#alignment-of-information-to-security-posture)
 * [Applying the concepts of KEL, BADA-RUN, and KRAM](#applying-the-concepts-of-kel)
 
+:::
+
 ## Privacy Considerations
 
 ::: informative Privacy Considerations
@@ -2240,6 +2245,21 @@ This DID method provides no opportunity for [correlation](#correlation),
 [identification](#identification) or [disclosure](#disclosure) and therefore
 there is no opportunity to exclude the controller from knowing about data
 that others have about them.
+
+::: 
+
+## IANA Considerations
+
+This section is normative.
+
+[[ref: KERI event streams]] use the registered
+[application/cesr media type with IANA][iana-cesr]. The media type is
+`application/cesr`. The registration follows the template in
+[RFC6838](https://tools.ietf.org/html/rfc6838).
+
+[iana-cesr]:
+https://www.iana.org/assignments/provisional-standard-media-types/provisional-standard-media-types.xml
+
 
 ## Implementors Guide
 
@@ -2767,7 +2787,7 @@ events.
         "id":"#Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c",
         "type": "DIDCommMessaging", 
         "serviceEndpoint": "https://bar.example.com"
-      }
+      },
       {
         "id":"#BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw",
         "type": "KERIAgent", 
@@ -2779,6 +2799,7 @@ events.
   ]
 }
 ```
+::: 
 
 ## Annex
 
@@ -2975,17 +2996,9 @@ python implementation (keripy) only depends on the `pysodium`, `blake3`, and
 `cryptography` python packages. Libraries for KERI exist in javascript, rust,
 and python.
 
-### IANA Considerations
+::: 
 
-This section is normative.
 
-[[ref: KERI event streams]] use the registered
-[application/cesr media type with IANA][iana-cesr]. The media type is
-`application/cesr`. The registration follows the template in
-[RFC6838](https://tools.ietf.org/html/rfc6838).
-
-[iana-cesr]:
-https://www.iana.org/assignments/provisional-standard-media-types/provisional-standard-media-types.xml
 
 ## Bibliography
 
@@ -3017,9 +3030,12 @@ https://www.iana.org/assignments/provisional-standard-media-types/provisional-st
 
 ### Informative section
 
+::: informative 
 [[iref: did:webs Reference Implementation]]
 [[iref: Overlay Capture Architecture]]
 [[iref: rfc5895]]
 [[iref: StatusList2021]]
 [[iref: UTS-46]]
 [[iref: W3C VC Rendering Methods specification]]
+
+:::
