@@ -85,13 +85,20 @@ the inverse is not true--a `did:webs` must include an AID.
 
 ### Target System(s)
 
+::: informative hosting rules
+The following rules indicate where the two `did:webs` artifacts, `did.json` and 
+`keri.cesr`, are to be hosted on target systems and how they are to be resolved
+for both `did:webs` and `did:web` resolution.
+:::
+
 1. As with `did:web`, `did:webs` MUST read data from whatever web server is
    referenced when the [[ref: host]] portion of one of its DIDs is resolved.
 1. A `did:webs` DID MUST resolve to a [[ref: DID document]] using a simple
    text transformation to an HTTPS URL in the same way as a `did:web` DID.
-1. A `did:web` DID and `did:webs` DID with the same [[ref: method-specific-identifier]] SHOULD return the same DID document, except for minor
-   differences in the `id`, `controller`, and `alsoKnownAs` top-level
-   properties that pertain to the identifiers themselves.
+1. A `did:web` DID and `did:webs` DID with the same 
+   [[ref: method-specific-identifier]] SHOULD return the same DID document, 
+   except for minor differences in the `id`, `controller`, and `alsoKnownAs` 
+   top-level properties that pertain to the identifiers themselves.
 1. As with `did:web`, the location of the `did:webs` [[ref: DID document]]
    MUST be determined by transforming the DID to an HTTPS URL as follows:
     1. MUST replace `did:webs` with `https://`
@@ -106,12 +113,39 @@ the inverse is not true--a `did:webs` must include an AID.
     1. MUST replace the trailing "`/did.json`" with "`/keri.cesr`".
     2. A GET on that URL MUST return the KERI event stream for the AID in
        the `did:webs` identifier.
-    3. The KERI event stream MUST be [[ref: CESR]]-formatted (media type of
-       application/cesr) and the KERI events must be verifiable using the
-       KERI rules.
+    3. The KERI event stream MUST be [[ref: CESR]]-formatted, MUST have the
+       media type of `application/cesr`, and the KERI events must be verifiable
+       using the KERI rules.
 1. The `did:web` version of the DIDs MUST be the same (minus the `s`) and
-   point to the same `did.json` file, but have no knowledge of the
-   `keri.cesr` file.
+   point to the same `did.json` file.
+
+#### Sample did:webs URLs
+
+::: informative sample did:webs URLs on a target system
+
+The below example `did:webs` DIDs and their corresponding DID
+documents and KERI event stream URLs, based on the examples from the [[ref:
+did:web Specification]], but with the sample AID `EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR` added:
+
+* `did:webs:w3c-ccg.github.io:EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR`
+    * The DID document URL would look like:
+      `https://w3c-ccg.github.io/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/did.json`
+    * [[ref: KERI event stream]] URL would look like:
+      `https://w3c-ccg.github.io/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/keri.cesr`
+* `did:webs:w3c-ccg.github.io:user:alice:EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR`
+    * The DID document URL would look like:
+      `https://w3c-ccg.github.io/user/alice/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/did.json`
+    * [[ref: KERI event stream]] URL would look like:
+      `https://w3c-ccg.github.io/user/alice/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/keri.cesr`
+* `did:webs:example.com%3A3000:user:alice:EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR`
+    * The DID document URL would look like:
+      `https://example.com:3000/user/alice/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/did.json`
+    * [[ref: KERI event stream]] URL would look like:
+      `https://example.com:3000/user/alice/EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR/keri.cesr`
+
+:::
+
+#### KERI puts the "s" in `did:webs`
 
 ::: informative Target system and KERI verifiability
 For more information, see the following sections in the implementors guide:
@@ -127,26 +161,6 @@ and some KERI mechanisms, _together_, that constitutes this method's
 verifiable data registry. In short, verifying the DID document by
 processing the [[ref: KERI event stream]] using KERI puts the "s" of
 "security" in `did:webs`.
-
-The following are some example `did:webs` DIDs and their corresponding DID
-documents and KERI event stream URLs, based on the examples from the [[ref:
-did:web Specification]], but with the (faked) AID `12124313423525` added:
-
-* `did:webs:w3c-ccg.github.io:12124313423525`
-  * The DID document URL would look like:
-    `https://w3c-ccg.github.io/12124313423525/did.json`
-  * [[ref: KERI event stream]] URL would look like:
-    `https://w3c-ccg.github.io/12124313423525/keri.cesr`
-* `did:webs:w3c-ccg.github.io:user:alice:12124313423525`
-  * The DID document URL would look like:
-    `https://w3c-ccg.github.io/user/alice/12124313423525/did.json`
-  * [[ref: KERI event stream]] URL would look like:
-    `https://w3c-ccg.github.io/user/alice/12124313423525/keri.cesr`
-* `did:webs:example.com%3A3000:user:alice:12124313423525`
-  * The DID document URL would look like:
-    `https://example.com:3000/user/alice/12124313423525/did.json`
-  * [[ref: KERI event stream]] URL would look like:
-    `https://example.com:3000/user/alice/12124313423525/keri.cesr`
 
 :::
 
@@ -195,7 +209,7 @@ proven that they have the same controller(s).
        consider the resolution to be successful and should note it in the
        resolution metadata.
 
-1. The following resolution paths that `did:webs` identfiers SHALL leverage
+1. The following resolution paths that `did:webs` identifiers SHALL leverage
    to help in the face of resolution uncertainty include:
     1. The `did:webs` DID SHALL provide other [[ref: designated aliases]]
        DID(s) that are anchored to the [[ref: KERI event stream]].
@@ -221,7 +235,39 @@ stable identifiers on an unstable web]].
 
 ### DID Method Operations
 
+This section is normative.
+
+::: informative mapping DID Method Operations to KERI events 
+The four DID Method Operations, create, read, update, and deactivate conceptually map to the following events for a `did:webs` DID:
+- Create: `did:webs` identifier creation maps to the combination of 
+  - a KERI inception event and
+  - initial issuance of a designated aliases ACDC with the initial host and path
+    segments of the `did:webs` DID.
+- Read: plain HTTP GET of the following resources. Similar to a KERI OOBI resolution. 
+  - `did.json` document (derived from the `keri.cesr` stream)
+  - `keri.cesr` stream 
+    - includes:
+      - KERI events (KEL) for the `did:webs` DID and any delegators
+      - ACDC TEL events, issuance and revocation, for designated alias ACDCs
+      - ACDCs for designated aliases
+      - KERI Reply messages (Location Scheme, Endpoint Role Authorization)
+- Update: involves changing values in the DID document. These might include:
+  - **key change**: a KERI key rotation event changes the verificationMethods in a `did:webs` DID doc.
+  - **alsoKnownAs** or **equivalentID** change: adding an alsoKnownAs or equivalentID identifier in a DID doc.
+  - **service endpoint** change: witness rotation, or other services may be added to the `service`
+- Deactivate: rotating the underlying KERI identifier to null, or no next keys.
+:::
+
 #### Create
+
+::: informative create operation
+The **create** operation includes creation (inception) of the backing KERI 
+[[ref: AID]] and issuance of the first designated aliases ACDC containing the 
+host and path segment present in the `did:webs` DID.
+
+Once these actions are complete then the `did.json` and `keri.cesr` data may be
+generated and hosted at the URLs specified in the following rules.
+:::
 
 1. Creating a `did:webs` DID MUST follow these rules:
     1. MUST choose the web URL where the DID document for the DID will be
@@ -286,12 +332,25 @@ specification.
 
 #### Update
 
-1. If the AID of the `did:webs` DID is updatable, updates MUST be made to
-   the AID by adding KERI events to the [[ref: KERI event stream]].
-1. Updates to the KERI event stream that relate to the `did:webs` DID MUST
-   be reflected in the DID Document as soon as possible.
+##### AID VersionID (Key) Update
+
+The `did:webs` identifier itself, including the host, path, and AID cannot change. Updates 
+include only rotations to new keys for the backing AID.
+
+1. If the AID of the `did:webs` DID is updatable, as in transferable, 
+   updates (key rotations) MUST be made to the AID by adding KERI key rotation 
+  events to the [[ref: KERI event stream]].
+1. Updates (rotations) to the KERI event stream that relate to the `did:webs` 
+   DID MUST be reflected in the DID Document as soon as possible.
     1. If the `did:webs` DID files are statically hosted then they MUST be
        republished to the web server, overwriting the existing files.
+
+Rotating keys MUST change the keys that show up in the DID Document and MUST NOT
+change the identifier (AID).
+
+> Note: the versionId query parameter is not a part of the identifier yet it may
+> be used to request a point in time version of a DID document as of a given
+> KERI key event sequence number.
 
 #### Deactivate
 
@@ -1982,7 +2041,7 @@ method itself.
 > because they do not have the same DID method. A `did:web` identifier with
 > the same domain and AID does not have the same security characteristics as
 > the `did:webs` identifier. Conversely, a `did:keri` identifier with the
-> same AID has the same security characterisitcs but not the same dependence
+> same AID has the same security characteristics but not the same dependence
 > on the web. For these reasons, they are not listed in `equivalentId`.
 
 Example:
@@ -2450,10 +2509,33 @@ server by including an index (label: said) of the [[ref: SAIDs]] of the
 ### The set of KERI features needed
 
 ::: informative The set of KERI features needed
-The set of KERI features needed
+Generally the full featureset of KERI, ACDC, and CESR are needed for `did:webs` 
+though specific use cases may depend on a smaller subset of KERI and ACDC.
 
-This section is informative: The set of KERI features needed for most
-`did:webs` use cases is modest, with limited dependencies. These basics are
+[[ref: KERI]] means Key Event Receipt Infrastructure.
+[[ref: ACDC]] means Authentic Chained Data Containers.
+[[ref: CESR]] means Composable Event Streaming Representation.
+
+Full support of `did:webs` depends on the following KERI, ACDC, and CESR features:
+
+<div style="overflow-x: auto; white-space: nowrap;">
+
+| Source | Feature                             | Usage in `did:webs`                                                                                                   | Purpose                                                                                                                                      |
+|--------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| KERI   | Key Event Log (KEL)                 | `did:webs` DIDs use a KERI AID backed by a KEL.                                                                       | The KEL provides the security for a `did:webs` DID, including key rotation.                                                                  |
+| KERI   | Location Scheme Message             | URL Discovery. Part of the `keri.cesr` stream. Service endpoints (witnesses, etc.) use these to list authorized URLs. | Witness service endpoint section construction in the `service` DID doc section providing the backing witness URLs for the `did:webs` AID.    |
+| KERI   | Endpoint Role Authorization Message | Service endpoint authorizations. Part of the `keri.cesr` stream. Authorizes an infrastructure component in a role.    | Provides the `type` attribute of service endpoints in the `service` DID doc section for witnesses or other infrastructure components.        | 
+| KERI   | Out of Band Identifier (OOBI)       | The `serviceEndpoint` for a delegated identifier uses a KERI OOBI                                                     | Indicates where a `did:webs` resolver would check to retrieve the KERI event stream for a given `did:webs` AID or its delegator.             | 
+| ACDC   | Credential Graph (DAG)              | Every `did:webs` DID defines authorized host and path with a designated aliases ACDC (credential)                     | Designated aliases ACDC provides `did:webs` DID host and path segment verifiability.                                                         |  
+| KERI   | Key Rotation                        | `versionId` allows requesting a `did:webs` DID document at a point in time as of a given KEL sequence number.         | Long term auditability and verifiability depend on versioned DID documents.                                                                  |
+| KERI   | Multi-signature Identifiers         | A `did:webs` DID may use multi-signature identifiers with ConditionalProof2022 for advanced identifier control.       | Enterprise and personal identifier usage often include multi-signature, multi-person setups. Multi-sig facilitates this.                     |
+| KERI   | Delegated Identifiers               | The `DelegatorOOBI` service type in `did:webs` relies upon the delegated identifier feature of KERI.                  | Delegated identifiers support structured, hierarchical identifier control often modelled in enterprise, personal, or guardianship scenarios. |
+| ACDC   | Transaction Event Log (TEL)         | Anchoring of designated alias credentials to a KEL consists of anchoring TEL events to a KEL for that ACDC.           | TELs are a fundamental, critical component of anchoring an ACDC and are required to be in the`did:webs` DID's `keri.cesr` stream.            |
+| CESR   | Text or binary representation       | All `did:webs` DIDs present a CESR-encoded `keri.cesr` stream. Also, an AID is a CESR encoded string.                 | CESR is the text and binary wire protocol fundamental to KERI, ACDC, and `did:webs`                                                          | 
+
+</div>
+
+These basics are
 summarized in the [KERI Fundamentals](#keri-fundamentals) section of this
 specification. This specification assumes a working knowledge of the
 concepts there. The inclusion of KERI in `did:webs` enables a number of
@@ -2504,7 +2586,9 @@ confirms the link between the source and the copy with an `equivalentId`,
 the related copies will have to be kept in sync.
 
 Were the AID of a `did:webs` identifier to change, it would be an altogether
-new DID, unconnected to the first DID.
+new DID, unconnected to the first DID. Furthermore, changing the host or path
+of a `did:webs` DID also makes a new DID, albeit with the same backing AID.
+
 A `did:webs` could be moved to use another DID method that uses the AID for
 uniqueness and the [[ref: KERI event stream]] for validity, but that is
 beyond the scope of this specification.
