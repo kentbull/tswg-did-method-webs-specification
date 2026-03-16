@@ -2,13 +2,13 @@
 
 The speccification for the `did:webs` [DID method](https://w3c-ccg.github.io/did-spec/#specific-did-method-schemes).
 
-To browse the spec, see the [rendering on github pages](https://trustoverip.github.io/tswg-did-method-webs-specification/index.html).
+To browse the spec, see the [rendering on github pages](https://trustoverip.github.io/kswg-did-method-webs-specification/index.html).
 
 ## Viewing the spec
 
 ```bash
-git clone git@github.com:trustoverip/tswg-did-method-webs-specification.git
-cd tswg-did-method-webs-specification
+git clone git@github.com:trustoverip/kswg-did-method-webs-specification.git
+cd kswg-did-method-webs-specification
 npm install
 npm run render
 open docs/index.html
