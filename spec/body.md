@@ -310,17 +310,18 @@ event stream]] resources.
        section [Target System(s)](#target-systems).
     1. MUST execute HTTP GET requests on both the URL for the DID document
        (ending in `/did.json`) and the URL for the [[ref: KERI event stream]] 
-       (ending in `/keri.cesr`).
+       (ending in `/keri.cesr`). To maintain compatibility with `did:web` resolvers, 
+       the `did.json` MUST be formatted as a `did:web` DID document according to section 
+       [Transformation to did:web](#transformation-to-didweb-did-document).
     1. MUST process the KERI event stream using [[ref: KERI Protocol]] Rules
        to verify it, then derive the `did:webs` [[ref: DID document]] by
-       processing the KERI event stream according to section [DID
-       Documents](#did-documents).
+       processing the KERI event stream according to section [DID Documents](#did-documents).
     1. MUST transform the retrieved `did:web` DID document to the
        corresponding `did:webs` DID document according to section
-       [Transformation to did:webs DID
-       Document](#transformation-to-didwebs-did-document).
+       [Transformation to did:webs DID  Document](#transformation-to-didwebs-did-document).
     1. MUST verify that the derived `did:webs` DID document equals the
-       transformed DID document.
+       transformed DID document. 
+    1. MUST return the `did:webs` DID document.
     1. KERI-aware applications MAY use the KERI event stream to make use of
        additional capabilities enabled by the use of KERI.
 
