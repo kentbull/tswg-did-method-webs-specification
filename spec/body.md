@@ -309,8 +309,8 @@ event stream]] resources.
     1. MUST convert the `did:webs` DID back to HTTPS URLs as described in
        section [Target System(s)](#target-systems).
     1. MUST execute HTTP GET requests on both the URL for the DID document
-       (ending in `/did.json`) and the URL for the [[ref: KERI event
-       stream]] (ending in `/keri.cesr`).
+       (ending in `/did.json`) and the URL for the [[ref: KERI event stream]] 
+       (ending in `/keri.cesr`).
     1. MUST process the KERI event stream using [[ref: KERI Protocol]] Rules
        to verify it, then derive the `did:webs` [[ref: DID document]] by
        processing the KERI event stream according to section [DID
