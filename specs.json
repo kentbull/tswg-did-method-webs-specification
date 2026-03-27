@@ -10,12 +10,12 @@
         "body.md"
       ],
       "logo": "https://raw.githubusercontent.com/trustoverip/logo-assets/master/logos/ToIP-Logo-Color-SolidDimensional-Horizontal-LightOnDark.svg",
-      "logo_link": "https://github.com/trustoverip/tswg-did-method-webs-specification",
+      "logo_link": "https://github.com/trustoverip/kswg-did-method-webs-specification",
       "katex": true,
       "source": {
         "host": "github",
         "account": "trustoverip",
-        "repo": "tswg-did-method-webs-specification"
+        "repo": "kswg-did-method-webs-specification"
       },
       "author": "Trust over IP Foundation",
       "description": "Create technical specifications in markdown. Based on the original Spec-Up, extended with Terminology tooling",
