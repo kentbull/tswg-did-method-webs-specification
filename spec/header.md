@@ -10,9 +10,9 @@ we encourage additional did:webs implementations to the original
 
 **Latest Draft:**
 
-[https://github.com/trustoverip/tswg-did-method-webs-specification][tswg-gh]
+[https://github.com/trustoverip/kswg-did-method-webs-specification][kswg-gh]
 
-[tswg-gh]: https://github.com/trustoverip/tswg-did-method-webs-specification
+[kswg-gh]: https://github.com/trustoverip/kswg-did-method-webs-specification
 
 **Editors:**
 
@@ -36,8 +36,8 @@ we encourage additional did:webs implementations to the original
 
 **Participate:**
 
-~ [GitHub repo](https://github.com/trustoverip/tswg-did-method-webs-specification)
-~ [Commit history](https://github.com/trustoverip/tswg-did-method-webs-specification/commits/main)
+~ [GitHub repo](https://github.com/trustoverip/kswg-did-method-webs-specification)
+~ [Commit history](https://github.com/trustoverip/kswg-did-method-webs-specification/commits/main)
 
 [msabadello]: https://www.linkedin.com/in/markus-sabadello-353a0821/
 
@@ -102,7 +102,7 @@ did:webs:example.com%3A3000:users:alice:EKYGGh-FtAphGmSZbsuBs_t4qpsjYJ2ZqvMKluq9
 
 Information about the current status of this document, any errata,
 and how to provide feedback on it, may be obtained at
-[https://github.com/trustoverip/tswg-did-method-webs-specification](https://github.com/trustoverip/tswg-did-method-webs-specification).
+[https://github.com/trustoverip/kswg-did-method-webs-specification](https://github.com/trustoverip/kswg-did-method-webs-specification).
 
 ## Copyright Notice
 

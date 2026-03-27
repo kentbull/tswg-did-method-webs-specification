@@ -2545,7 +2545,7 @@ support, delegated identifier support for signing scalability, and the
 creation of [[ref: pre-rotated]] keys to prevent loss of control of the
 identifier if the current private key were to be compromised.
 You may find the
-[did:webs feature dependency diagram](https://github.com/trustoverip/tswg-did-method-webs-specification/blob/main/WEBS_FEATURE_DEPS.md)
+[did:webs feature dependency diagram](https://github.com/trustoverip/kswg-did-method-webs-specification/blob/main/WEBS_FEATURE_DEPS.md)
 helpful as a visual guide to the features and dependencies of `did:webs`.
 :::
 
@@ -2896,7 +2896,7 @@ events.
 cryptographic keys, identifiers, and associated verifiable data structures.
 KERI was first described in an
 [academic paper](https://arxiv.org/abs/1907.02143), and its
-[specification](https://github.com/trustoverip/tswg-keri-specification) is
+[specification](https://github.com/trustoverip/kswg-keri-specification) is
 currently incubated under [Trust Over IP Foundation](https://trustoverip.org/).
 The open source community that develops KERI-related technologies can be
 found at `https://github.com/WebOfTrust/keri`. This section outlines the

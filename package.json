@@ -18,14 +18,14 @@
     "Nuttawut Kongsuwan <nuttawut@finema.co> (https://finema.co)",
     "Sam Smith <sam@prosapien.com> (https://prosapien.com)"
   ],
-  "homepage": "https://github.com/trustoverip/tswg-did-method-webs-specification#readme",
+  "homepage": "https://github.com/trustoverip/kswg-did-method-webs-specification#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trustoverip/tswg-did-method-webs-specification.git",
+    "url": "git+https://github.com/trustoverip/kswg-did-method-webs-specification.git",
     "directory": "."
   },
   "bugs": {
-    "url": "https://github.com/trustoverip/tswg-did-method-webs-specification/issues"
+    "url": "https://github.com/trustoverip/kswg-did-method-webs-specification/issues"
   },
   "keywords": [
     "keri",
