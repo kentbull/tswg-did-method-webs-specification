@@ -6,7 +6,7 @@ ToIP `did:webs` Method Specification
 In order to further validate and improve the specification and to
 demonstrate interoperability between multiple implementations of did:webs,
 we encourage additional did:webs implementations to the original
-[[ref: did:webs Reference Implementation]].
+[did:webs Reference Implementation](https://github.com/GLEIF-IT/did-webs-resolver).
 
 **Latest Draft:**
 

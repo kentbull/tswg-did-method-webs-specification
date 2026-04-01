@@ -1,6 +1,6 @@
 [[def: autonomic-identifier, autonomic identifier, AID, AIDs]]
 
-~ An [[ref: self-certifying identifier]] (SCID) that is cryptographically bound
+~ A self-certifying identifier (SCID) that is cryptographically bound
 ~    to a [[xref: keri1, key-event-log, key event log]] (KEL), as defined by the
 ~    [KERI specification](#KSWG-KERI). An AID is either non-transferable or
 ~    transferable. A non-transferable AID does not support key rotation while a
