@@ -22,7 +22,8 @@ surpassing the one HTTPS gives to HTTP.
 
 1. The `did:webs` [[ref: method-specific identifier]] MUST have two parts, a
    [[ref: host]] with an optional path (identical to `did:web`), plus a KERI
-   AID (autonomic identifier) that is always the final component of the path.
+   [[ref: AID]] ([[ref: autonomic identifier]]) that is always the final
+   component of the path.
 1. The ABNF definition of a `did:webs` DID MUST be as follows:
 
 ```abnf
@@ -186,7 +187,7 @@ processing the [[ref: KERI event stream]] using KERI puts the "s" of
    considered invalid.
 1. The verification of the KERI event stream SHOULD provide mechanisms for
    detecting the forking of the KERI event stream by using mechanisms such
-   as KERI witnesses and watchers.
+   as KERI [[ref: witnesses]] and [[ref: watchers]].
 
 ::: informative AID and KERI event stream binding
 Since an AID is a unique cryptographic identifier that is inseparably bound
@@ -245,7 +246,8 @@ The four DID Method Operations, create, read, update, and deactivate conceptuall
   - a KERI inception event and
   - initial issuance of a designated aliases ACDC with the initial host and path
     segments of the `did:webs` DID.
-- Read: plain HTTP GET of the following resources. Similar to a KERI OOBI resolution. 
+- Read: plain HTTP GET of the following resources. Similar to a KERI
+  [[ref: OOBI]] resolution.
   - `did.json` document (derived from the `keri.cesr` stream)
   - `keri.cesr` stream 
     - includes:
@@ -256,7 +258,7 @@ The four DID Method Operations, create, read, update, and deactivate conceptuall
 - Update: involves changing values in the DID document. These might include:
   - **key change**: a KERI key rotation event changes the verificationMethods in a `did:webs` DID doc.
   - **alsoKnownAs** or **equivalentID** change: adding an alsoKnownAs or equivalentID identifier in a DID doc.
-  - **service endpoint** change: witness rotation, or other services may be added to the `service`
+  - **service endpoint** change: [[ref: witness]] rotation, or other services may be added to the `service`
 - Deactivate: rotating the underlying KERI identifier to null, or no next keys.
 :::
 
@@ -300,7 +302,7 @@ can use capabilities like [CDNs] to distribute the resources. How the
 resources are posted at the required location is not defined by this spec;
 complying implementations need not support any HTTP methods other than GET.
 
-An active component might be used by the controller of the DID to automate
+An active component might be used by the [[ref: controller]] of the DID to automate
 the process of publishing and updating the DID document and [[ref: KERI
 event stream]] resources.
 :::
@@ -358,7 +360,7 @@ change the identifier (AID).
 
 #### Deactivate
 
-1. To deactivate a `did:webs` DID, A controller SHOULD execute a KERI event that
+1. To deactivate a `did:webs` DID, a [[ref: controller]] SHOULD execute a KERI event that
    has the effect of rotating the key(s) to null and continue to publish the
    DID document and KERI event stream.
     1. Once the deactivation events have been applied, the controller SHOULD
@@ -1692,7 +1694,7 @@ endpoint in its DID document as follows.
     1. The service `serviceEndpoint` property MUST be a valid
        [[ref: out-of-band introduction]] ([[ref: OOBI]]) URL that resolves to
        the delegator's AID.
-1. The delegator service endpoint enables verifiers to discover and validate
+1. The delegator service endpoint enables [[ref: verifiers]] to discover and validate
    the delegation relationship by retrieving the delegator's [[ref: KEL]].
 
 For example, a `did:webs` DID that is a delegated AID MUST include, in its
@@ -2240,7 +2242,8 @@ Below we discuss privacy considerations related the KERI infrastructure.
 
 ### Surveillance
 
-In KERI, a robust witness network along with consistent witness rotation
+In KERI, a robust [[ref: witness]] network along with consistent [[ref: witness]]
+rotation
 provides protection from monitoring and association of an individual's
 activity inside a KERI network.
 
@@ -2271,7 +2274,8 @@ attribution.
 
 The root of trust for KERI identifiers is entropy and therefore offers no
 direct means of correlation.  In addition, KERI provides two modes of
-communication, direct mode and indirect mode.  Direct mode allows for
+communication, [[ref: direct mode]] and [[ref: indirect mode]]. [[ref: direct mode]]
+allows for
 pairwise (n-wise as well) relationships that can be used to establish
 private relationships.
 
@@ -2282,7 +2286,8 @@ See the KERI specification for
 
 The root of trust for KERI identifiers is entropy and therefore offers no
 direct means of identification.  In addition, KERI provides two modes of
-communication, direct mode and indirect mode.  Direct mode allows for
+communication, [[ref: direct mode]] and [[ref: indirect mode]]. [[ref: direct mode]]
+allows for
 pairwise (n-wise as well) relationships that can be used to establish
 private relationships.
 
@@ -2988,7 +2993,7 @@ _next_ key and locks the attacker out again.
 
 #### Weighted Multisig
 
-The [[ref: KERI]] protocol supports weighted multi-signature scheme that
+The [[ref: KERI]] protocol supports a weighted [[ref: multi-signature]] scheme that
 allows for [conditional proof](#thresholds) in the
 [Verification Methods](#verification-methods). A multisig [[ref: AID]]
 distributes its control among multiple key holders. This includes simple
@@ -3034,8 +3039,9 @@ data that is deterministically bound to the [[ref: key event]] history in the
 [[ref: KEL]]. Transactions that are recorded in a TEL may include things
 like the issuance and revocation of verifiable credentials or the fact that
 listeners on various service endpoints started or stopped. Like KELs, TELs are
-self-certifying and may also be published by KERI witnesses to enhance
-discoverability and provide watcher networks the ability to detect duplicity.
+self-certifying and may also be published by KERI [[ref: witnesses]] to enhance
+discoverability and provide [[ref: watcher]] networks the ability to detect
+duplicity.
 For example, we demonstrate that in this spec in how we anchor
 [[ref: designated aliases]] as
 [verifiable data on a TEL](#verifiable-data-on-a-tel).
