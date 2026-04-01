@@ -1,7 +1,7 @@
 [[def: interaction-event, interaction event interaction events]]
 
 ~ A key event that anchors external data to an [[ref: AID]], as defined by the
-~    [KERI specification](https://trustoverip.github.io/kswg-keri-specification/). An interaction event does not change the
+~    [KERI specification](#KSWG-KERI). An interaction event does not change the
 ~    [[ref: key state]] of the [[ref: AID]].
 
 ~ More detail:

@@ -1,7 +1,7 @@
 [[def: out-of-band-introduction, out-of-band introduction, OOBI, OOBIs, OOBI specification]]
 
 ~ A protocol for discovering verifiable information on an [[ref: AID]] or a
-~    [[ref: SAID]], as defined by the [KERI specification](https://trustoverip.github.io/kswg-keri-specification/). The OOBI by
+~    [[ref: SAID]], as defined by the [KERI specification](#KSWG-KERI). The OOBI by
 ~    itself is insecure, and the information discovered by the OOBI must be
 ~    verified.
 

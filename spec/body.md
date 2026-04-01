@@ -66,9 +66,8 @@ said-512 = two-char-code 86base64urlsafe
 ```
 
 1. The [[ref: host]] MUST abide by the formal rules describing valid syntax
-   found in [RFC 1035](https://www.rfc-editor.org/info/rfc1035),
-   [RFC 1123](https://datatracker.ietf.org/doc/html/rfc1123), and
-   [RFC 2181](https://www.rfc-editor.org/info/rfc2181).
+   found in [RFC 1035](#RFC1035), [RFC 1123](#RFC1123), and
+   [RFC 2181](#RFC2181).
 1. A port MAY be included and the colon MUST be percent encoded, like `%3a`,
    to prevent a conflict with paths.
 1. Directories and subdirectories MAY optionally be included, delimited by
@@ -127,7 +126,7 @@ for both `did:webs` and `did:web` resolution.
 
 The below example `did:webs` DIDs and their corresponding DID
 documents and KERI event stream URLs, based on the examples from the
-[did:web specification](https://w3c-ccg.github.io/did-method-web/), but with the sample AID `EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR` added:
+[did:web specification](#W3C-DID-WEB), but with the sample AID `EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR` added:
 
 * `did:webs:w3c-ccg.github.io:EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR`
     * The DID document URL would look like:
@@ -317,7 +316,7 @@ event stream]] resources.
        the `did.json` MUST be formatted as a `did:web` DID document according to section 
        [Transformation to did:web](#transformation-to-didweb-did-document).
     1. MUST process the KERI event stream using 
-       [KERI protocol](https://trustoverip.github.io/kswg-keri-specification/) rules
+       [KERI specification](#KSWG-KERI) rules
        to verify it, then derive the `did:webs` [[ref: DID document]] by
        processing the KERI event stream according to section [DID Documents](#did-documents).
     1. MUST transform the retrieved `did:web` DID document to the
@@ -398,7 +397,7 @@ see the implementors guide description of the
 To understand the KERI AID commands resulting in the
 [[ref: KERI Event Stream]] and the corresponding `did:webs` DID document see
 the original
-[did:webs Reference Implementation getting started guide](https://github.com/GLEIF-IT/did-webs-resolver/blob/main/docs/getting_started.md).
+[did:webs Reference Implementation getting started guide](#DIDWEBS-REF-IMPL).
 
 In KERI the calculated values that result from processing the
 [[ref: KERI event stream]] are referred to as the "current key state" and
@@ -1196,7 +1195,7 @@ DID document to a `did:webs` DID document.
 ::: informative Full Example
 
 To walk through a real-world example, please see the GETTING STARTED guide in
-[the did:webs Reference Implementation](https://github.com/GLEIF-IT/did-webs-resolver) as it walks users through many
+[the did:webs Reference Implementation](#DIDWEBS-REF-IMPL) as it walks users through many
 did:webs related tasks (and associated KERI commands) to demonstrate how they
 work together.
 
@@ -1448,15 +1447,15 @@ document.
    [Verification Relationships](#verification-relationships).
 
 ::: informative KERI event references
-You can learn more about the inception event in the [[ref: KERI
-specification]] and you can see an example inception event. To learn about
+You can learn more about the inception event in the [KERI
+specification](#KSWG-KERI) and you can see an example inception event. To learn about
 future rotation key commitment, see the sections about
-[pre-rotation](#pre-rotation) and the KERI specification.
+[pre-rotation](#pre-rotation) and the [KERI specification](#KSWG-KERI).
 
-You can learn more about rotation events in the KERI specification and you
+You can learn more about rotation events in the [KERI specification](#KSWG-KERI) and you
 can see an example rotation event. To learn about future rotation key
 commitment, see the sections about [pre-rotation](#pre-rotation) and the
-[KERI specification](https://trustoverip.github.io/kswg-keri-specification/).
+[KERI specification](#KSWG-KERI).
 :::
 
 ### Delegation KERI event details
@@ -1484,7 +1483,7 @@ Delegated [[ref: rotation event]]: Updates the delegated identifier
 commitment. Either the delegator or the delegate can end the delegation
 commitment.
 
-See the [KERI specification](https://trustoverip.github.io/kswg-keri-specification/) for an example of a delegated inception
+See the [KERI specification](#KSWG-KERI) for an example of a delegated inception
 and rotation events.
 :::
 
@@ -1872,7 +1871,7 @@ did:webs:example.com:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M?transformKeys=
 #### `CesrKey` and `publicKeyCesr`
 
 This specification defines the following extensions to the DID document
-data model in accordance with the [DID Spec Registries](https://www.w3.org/TR/did-extensions/):
+data model in accordance with the [DID Spec Registries](#W3C-DID-REGISTRIES):
 
 1. Extension verification method `type` `CesrKey` MAY be available in a
    `did:webs` DID document to express a public key encoded in [[ref: CESR]]
@@ -2162,7 +2161,7 @@ various reasons.
 
 1. As with `did:web`, implementers of `did:webs` SHOULD consider how non-ASCII
    characters manifest in URLs and DIDs.
-    1. `did:webs` MUST follow the [DID Core](https://www.w3.org/TR/did-1.0/) identifier syntax which
+    1. `did:webs` MUST follow the [DID Core](#W3C-DID-CORE) identifier syntax which
        does not allow the direct representation of such characters in method
        name or method specific identifiers. This prevents a `did:webs` value
        from embodying a homograph attack.
@@ -2614,7 +2613,7 @@ KERI event stream to the DID Document properties compose the core of the
 did:webs resolver logic.  Understanding the optimal way to update and
 maintain the KERI event stream (publish static keri.cesr files, dynamically
 generate the keri.cesr resource, etc) is beyond the scope of the spec,
-but the [did:webs Reference Implementation](https://github.com/GLEIF-IT/did-webs-resolver) of the resolver
+but the [did:webs Reference Implementation](#DIDWEBS-REF-IMPL) of the resolver
 demonstrate some of these techniques. The important concept is that the
 entire KERI event stream is used to produce and verify the DID document.
 :::
@@ -2625,7 +2624,7 @@ entire KERI event stream is used to produce and verify the DID document.
 This section is informative: Below is an example highlighting how verifiable
 data is anchored to a [[ref: KEL]] using a [[ref: TEL]]. We use this spec's
 [[ref: designated aliases]] feature as a real-world example. You can walk
-through this example in the [did:webs Reference Implementation](https://github.com/GLEIF-IT/did-webs-resolver).
+through this example in the [did:webs Reference Implementation](#DIDWEBS-REF-IMPL).
 The attestation (self-issued credential) is as follows:
 
 ```json
@@ -3071,7 +3070,7 @@ by itself, at a high level, it has two essential properties:
    This means they are very terse and there is no need for the variety of
    representation methods that create interoperability challenges in other
    DID methods (`publicKeyJwk` versus `publicKeyMultibase` versus other; see
-   the verification material section of the [DID specification](https://www.w3.org/TR/did-1.0/).
+   the verification material section of the [DID specification](#W3C-DID-CORE).
 
 Despite this rich set of features, KERI imposes only light dependencies on
 developers. The cryptography it uses is familiar and battle-hardened, exactly
