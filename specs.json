@@ -1,7 +1,7 @@
 {
   "specs": [
     {
-      "title": "DID Method did:webs Specification",
+      "title": "did:webs DID Method Specification",
       "spec_directory": "./spec",
       "output_path": "./docs",
       "markdown_paths": [
@@ -18,7 +18,7 @@
         "repo": "kswg-did-method-webs-specification"
       },
       "author": "Trust over IP Foundation",
-      "description": "Create technical specifications in markdown. Based on the original Spec-Up, extended with Terminology tooling",
+      "description": "Specification text for the did:webs DID method.",
       "spec_terms_directory": "terms-definitions",
       "external_specs": [
         {
