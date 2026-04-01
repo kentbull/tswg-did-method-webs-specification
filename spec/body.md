@@ -72,7 +72,7 @@ said-512 = two-char-code 86base64urlsafe
    to prevent a conflict with paths.
 1. Directories and subdirectories MAY optionally be included, delimited by
    colons rather than slashes.
-1. The KERI AID is a unique identifier and MUST be derived from the
+1. The KERI AID is a unique [[ref: identifier]] and MUST be derived from the
    [[ref: inception event]] of a KERI identifier.
 
 ::: informative did:web compatibility
@@ -391,7 +391,7 @@ This section is normative.
    self-describing and terse.
 
 ::: informative Understanding key state and KSN
-To better understand the cryptographically verifiable data structures used,
+To better understand the [[ref: cryptographically verifiable]] data structures used,
 see the implementors guide description of the
 [KERI event stream chain of custody](#KERI-event-stream-chain-of-custody).
 To understand the KERI AID commands resulting in the
@@ -1685,11 +1685,13 @@ endpoint in its DID document as follows.
 1. When a delegator service endpoint is present, it MUST conform to the
    following requirements:
     1. The service `type` property MUST be set to `DelegatorOOBI`.
-    1. The service `id` property MUST be the [[ref: SAID]] of the seal (anchor
+    1. The service `id` property MUST be the [[ref: self-addressing identifier]]
+       ([[ref: SAID]]) of the seal (anchor
        block) in the delegator's [[ref: KEL]] that commits to the delegate's
        delegated inception event.
-    1. The service `serviceEndpoint` property MUST be a valid [[ref: OOBI]]
-       URL that resolves to the delegator's AID.
+    1. The service `serviceEndpoint` property MUST be a valid
+       [[ref: out-of-band introduction]] ([[ref: OOBI]]) URL that resolves to
+       the delegator's AID.
 1. The delegator service endpoint enables verifiers to discover and validate
    the delegation relationship by retrieving the delegator's [[ref: KEL]].
 
@@ -2202,8 +2204,8 @@ signatures and other information in `did:webs`.
             1. The controller(s) of the AID for a `did:webs` identifier MAY use
                BADA-RUN for service end-points as discovery mechanisms.
     1. All data that does not need the security of being KEL backed nor
-       BADA-RUN SHOULD be served using _KERI Request Authentication
-       Mechanism_ ([[ref: KRAM]]).
+       BADA-RUN SHOULD be served using
+       _[[ref: KERI Request Authentication Mechanism]]_ ([[ref: KRAM]]).
         1. For a `did:webs` resolver to be trusted it SHOULD use KRAM to
            access the service endpoints providing KERI event streams for
            verification of the DID document.
@@ -2291,7 +2293,8 @@ See the KERI specification for
 
 The Key State made available in the metadata of this DID method is generally
 available and can be used by any party to retrieve and verify the state of
-the KERL for the given identifier.
+the [[ref: key event receipt log]] ([[ref: KERL]]) for the given
+[[ref: identifier]].
 
 ### Disclosure
 
@@ -2372,7 +2375,7 @@ transformation in the spec.
 ::: informative On-Disk Storage
 On-Disk Storage
 
-This section is informative: Both KEL backed data and [[ref: BADA-RUN]]
+This section is informative: Both [[ref: KEL backed data]] and [[ref: BADA-RUN]]
 security approaches are suitable for storing information on disk because both
 provide a link between the keystate and date-time on some data when a
 signature by the source of the data was created. [[ref: BADA-RUN]] is too
@@ -2512,9 +2515,9 @@ server by including an index (label: said) of the [[ref: SAIDs]] of the
 Generally the full featureset of KERI, ACDC, and CESR are needed for `did:webs` 
 though specific use cases may depend on a smaller subset of KERI and ACDC.
 
-[[ref: KERI]] means Key Event Receipt Infrastructure.
-[[ref: ACDC]] means Authentic Chained Data Containers.
-[[ref: CESR]] means Composable Event Streaming Representation.
+[[ref: KERI]] means [[ref: key event receipt infrastructure]].
+[[ref: ACDC]] means [[ref: authentic chained data container]].
+[[ref: CESR]] means [[ref: compact event streaming representation]].
 
 Full support of `did:webs` depends on the following KERI, ACDC, and CESR features:
 
@@ -2905,8 +2908,9 @@ fundamentals and components of the KERI protocol that are related to the
 #### Autonomic Identifier (AID)
 
 An [[ref: autonomic identifier]] is a globally-unique persistent
-self-certifying identifier that serves as the primary root-of-trust of the
-KERI protocol. An AID is cryptographically bound to a [[ref: KEL]] that
+self-certifying [[ref: verifiable identifier]] that serves as the primary
+root-of-trust of the KERI protocol. An AID is cryptographically bound to a
+[[ref: KEL]] that
 determines the evolution of its [[ref: key state]] using the
 [[ref: pre-rotation]] mechanism. AIDs and the underlying KERI protocol, by
 themselves, satisfy most of the
