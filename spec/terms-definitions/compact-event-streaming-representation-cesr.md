@@ -6,4 +6,4 @@
 ~    the [CESR Proof Signatures specification](#KSWG-CESR-PROOF).
 
 ~ More detail:
-~    [WebOfTrust glossary](https://weboftrust.github.io/WOT-terms/docs/glossary/composable-event-streaming-representation).
+~    [[xref: keri1, cesr, CESR]].
