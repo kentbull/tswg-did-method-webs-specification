@@ -2,8 +2,8 @@
 
 ~ An encoding format that enables round-trip text-binary conversion of
 ~    concatenated cryptographic primitives and general data types, as defined by
-~    the [[ref: CESR specification]] and
-~    [[ref: CESR Proof Signature specification]].
+~    the [CESR specification](#KSWG-CESR) and
+~    the [CESR Proof Signatures specification](#KSWG-CESR-PROOF).
 
 ~ More detail:
-~    [WebOfTrust glossary](https://weboftrust.github.io/WOT-terms/docs/glossary/composable-event-streaming-representation).
+~    [[xref: keri1, cesr, CESR]].

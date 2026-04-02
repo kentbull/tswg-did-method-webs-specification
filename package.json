@@ -1,6 +1,6 @@
 {
   "name": "did-webs-spec",
-  "version": "0.9.17",
+  "version": "0.10.0",
   "private": true,
   "license": "Apache-2.0",
   "description": "ToIP KSWG did:webs specification written in Markdown and converted to HTML using the Spec-Up-T tool.",
@@ -36,12 +36,12 @@
     "did-webs-specification"
   ],
   "dependencies": {
-    "dotenv": "^17.2.3",
-    "spec-up-t": "^1.6.7"
+    "dotenv": "^17.3.1",
+    "spec-up-t": "^1.6.19"
   },
   "overrides": {
     "braces": ">=3.0.3",
-    "diff": ">=8.0.3",
+    "diff": ">=8.0.4",
     "gulp": ">=5.0.1"
   },
   "scripts": {

@@ -1,12 +1,12 @@
 ToIP `did:webs` Method Specification
 ==================
 
-**Specification Status**: v0.9.18
+**Specification Status**: v0.10.0
 
 In order to further validate and improve the specification and to
 demonstrate interoperability between multiple implementations of did:webs,
 we encourage additional did:webs implementations to the original
-[[ref: did:webs Reference Implementation]].
+[did:webs Reference Implementation](#DIDWEBS-REF-IMPL).
 
 **Latest Draft:**
 
@@ -128,7 +128,7 @@ IN NO EVENT WILL ANY ToIP PARTY BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR
 This document specifies a [DID
 Method](https://www.w3.org/TR/did-1.0/#methods),
 `did:webs`, that is web-based but innovatively secure. Like its
-interoperable cousin, [`did:web`](https://w3c-ccg.github.io/did-method-web/), the
+interoperable cousin, [`did:web`](#W3C-DID-WEB), the
 `did:webs` method uses traditional web infrastructure to publish DIDs and
 make them discoverable. Unlike `did:web`, this method's trust is not rooted in
 DNS, webmasters, X509, and certificate authorities. Instead, it uses [[ref:

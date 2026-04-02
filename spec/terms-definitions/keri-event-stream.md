@@ -8,4 +8,4 @@
 ~    these CESR stream resources as KERI event streams to simplify the vocabulary.
 
 ~ More detail:
-~    [WebOfTrust glossary](https://weboftrust.github.io/WOT-terms/docs/glossary/keri-event-stream).
+~    [[xref: keri1, KERI-event-stream, KERI event stream]].

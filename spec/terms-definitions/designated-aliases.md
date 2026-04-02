@@ -6,4 +6,4 @@
 ~    redirection to different did:webs identifiers.
 
 ~ More detail:
-~    [WebOfTrust glossary](https://github.com/WebOfTrust/WOT-terms/wiki/designated-aliases).
+~    [[xref: keri1, designated-aliases, designated aliases]].

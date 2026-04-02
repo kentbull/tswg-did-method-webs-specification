@@ -22,7 +22,8 @@ surpassing the one HTTPS gives to HTTP.
 
 1. The `did:webs` [[ref: method-specific identifier]] MUST have two parts, a
    [[ref: host]] with an optional path (identical to `did:web`), plus a KERI
-   AID (autonomic identifier) that is always the final component of the path.
+   [[ref: AID]] ([[ref: autonomic identifier]]) that is always the final
+   component of the path.
 1. The ABNF definition of a `did:webs` DID MUST be as follows:
 
 ```abnf
@@ -66,12 +67,13 @@ said-512 = two-char-code 86base64urlsafe
 ```
 
 1. The [[ref: host]] MUST abide by the formal rules describing valid syntax
-   found in [[ref: RFC1035]], [[ref: RFC1123]], and [[ref: RFC2181]].
+   found in [RFC 1035](#RFC1035), [RFC 1123](#RFC1123), and
+   [RFC 2181](#RFC2181).
 1. A port MAY be included and the colon MUST be percent encoded, like `%3a`,
    to prevent a conflict with paths.
 1. Directories and subdirectories MAY optionally be included, delimited by
    colons rather than slashes.
-1. The KERI AID is a unique identifier and MUST be derived from the
+1. The KERI AID is a unique [[ref: identifier]] and MUST be derived from the
    [[ref: inception event]] of a KERI identifier.
 
 ::: informative did:web compatibility
@@ -124,8 +126,8 @@ for both `did:webs` and `did:web` resolution.
 ::: informative sample did:webs URLs on a target system
 
 The below example `did:webs` DIDs and their corresponding DID
-documents and KERI event stream URLs, based on the examples from the [[ref:
-did:web Specification]], but with the sample AID `EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR` added:
+documents and KERI event stream URLs, based on the examples from the
+[did:web specification](#W3C-DID-WEB), but with the sample AID `EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR` added:
 
 * `did:webs:w3c-ccg.github.io:EKTh4PkRBiNWHQd263Eueu39gWmg7AfIfnEmNy6jinGR`
     * The DID document URL would look like:
@@ -167,9 +169,10 @@ processing the [[ref: KERI event stream]] using KERI puts the "s" of
 ### AID controlled identifiers
 
 1. [[ref: AID controlled identifiers]] MAY vary in how quickly they reflect
-   the current identity information, DID document and [[ref: KERI event
-   stream]]. Notably, as defined in section [Stable Identifiers On An Unstable
-   Web](#stable-identifiers-on-an-unstable-web), the `id` property in the DID
+   the current identity information, DID document and [[ref: KERI event stream]]. 
+   Notably, as defined in section
+   [Stable Identifiers On An Unstable Web](#stable-identifiers-on-an-unstable-web), 
+   the `id` property in the DID
    document will differ based on the web location of the DID document.
 1. Different versions of the DID document and KERI event stream MAY reside
    in different locations depending on the replication capabilities of the
@@ -184,7 +187,7 @@ processing the [[ref: KERI event stream]] using KERI puts the "s" of
    considered invalid.
 1. The verification of the KERI event stream SHOULD provide mechanisms for
    detecting the forking of the KERI event stream by using mechanisms such
-   as KERI witnesses and watchers.
+   as KERI [[ref: witnesses]] and [[ref: watchers]].
 
 ::: informative AID and KERI event stream binding
 Since an AID is a unique cryptographic identifier that is inseparably bound
@@ -214,13 +217,13 @@ proven that they have the same controller(s).
     1. The `did:webs` DID SHALL provide other [[ref: designated aliases]]
        DID(s) that are anchored to the [[ref: KERI event stream]].
     1. When a `did:webs` DID is permanently moved to some other location the
-       resolver MAY redirect to any other `equivalentId` [[ref: designated
-       aliases]].
+       resolver MAY redirect to any other `equivalentId` 
+       [[ref: designated aliases]].
         1. The `id` in the DID document MUST be set to the new location.
         1. An `equivalentId` entry of the old location SHOULD remain for
            historical purposes and be anchored to the KERI event stream using
-           [[ref: designated aliases]]. See section [Use of
-           `equivalentId`](#use-of-equivalentid) for more details.
+           [[ref: designated aliases]]. See section 
+           [Use of `equivalentId`](#use-of-equivalentid) for more details.
         1. If possible, the controller of the DID MAY use web redirects to
            allow resolution of the old location of the DID to the new
            location.
@@ -229,8 +232,8 @@ proven that they have the same controller(s).
        the data for the DID somewhere else using just the AID.
 
 ::: informative Stable identifiers
-The implementors guide contains more information about `did:webs` [[ref:
-stable identifiers on an unstable web]].
+The implementors guide contains more information about `did:webs` 
+stable identifiers on an unstable web.
 :::
 
 ### DID Method Operations
@@ -243,7 +246,8 @@ The four DID Method Operations, create, read, update, and deactivate conceptuall
   - a KERI inception event and
   - initial issuance of a designated aliases ACDC with the initial host and path
     segments of the `did:webs` DID.
-- Read: plain HTTP GET of the following resources. Similar to a KERI OOBI resolution. 
+- Read: plain HTTP GET of the following resources. Similar to a KERI
+  [[ref: OOBI]] resolution.
   - `did.json` document (derived from the `keri.cesr` stream)
   - `keri.cesr` stream 
     - includes:
@@ -254,7 +258,7 @@ The four DID Method Operations, create, read, update, and deactivate conceptuall
 - Update: involves changing values in the DID document. These might include:
   - **key change**: a KERI key rotation event changes the verificationMethods in a `did:webs` DID doc.
   - **alsoKnownAs** or **equivalentID** change: adding an alsoKnownAs or equivalentID identifier in a DID doc.
-  - **service endpoint** change: witness rotation, or other services may be added to the `service`
+  - **service endpoint** change: [[ref: witness]] rotation, or other services may be added to the `service`
 - Deactivate: rotating the underlying KERI identifier to null, or no next keys.
 :::
 
@@ -283,8 +287,8 @@ generated and hosted at the URLs specified in the following rules.
        [DID Documents](#did-documents).
     1. For compatibility reasons, transformation of the derived `did:webs`
        DID document to the corresponding `did:web` DID document MUST be
-       according to section [Transformation to did:web DID
-       Document](#transformation-to-didweb-did-document).
+       according to section 
+       [Transformation to did:web DID Document](#transformation-to-didweb-did-document).
     1. MUST make the did:web DID document resource (`did.json`) and the
        [[ref: KERI event stream]] resource (`keri.cesr`) available at the
        selected location. See section [Target System(s)](#target-systems) for
@@ -298,7 +302,7 @@ can use capabilities like [CDNs] to distribute the resources. How the
 resources are posted at the required location is not defined by this spec;
 complying implementations need not support any HTTP methods other than GET.
 
-An active component might be used by the controller of the DID to automate
+An active component might be used by the [[ref: controller]] of the DID to automate
 the process of publishing and updating the DID document and [[ref: KERI
 event stream]] resources.
 :::
@@ -313,7 +317,8 @@ event stream]] resources.
        (ending in `/keri.cesr`). To maintain compatibility with `did:web` resolvers, 
        the `did.json` MUST be formatted as a `did:web` DID document according to section 
        [Transformation to did:web](#transformation-to-didweb-did-document).
-    1. MUST process the KERI event stream using [[ref: KERI Protocol]] Rules
+    1. MUST process the KERI event stream using 
+       [KERI specification](#KSWG-KERI) rules
        to verify it, then derive the `did:webs` [[ref: DID document]] by
        processing the KERI event stream according to section [DID Documents](#did-documents).
     1. MUST transform the retrieved `did:web` DID document to the
@@ -355,15 +360,15 @@ change the identifier (AID).
 
 #### Deactivate
 
-1. To deactivate a `did:webs` DID, A controller SHOULD execute a KERI event that
+1. To deactivate a `did:webs` DID, a [[ref: controller]] SHOULD execute a KERI event that
    has the effect of rotating the key(s) to null and continue to publish the
    DID document and KERI event stream.
     1. Once the deactivation events have been applied, the controller SHOULD
        regenerate the DID document from the [[ref: KERI event stream]] and
        republish both documents (`did.json` and `keri.cesr`) to the web
        server, overwriting the existing files.
-    1. A controller SHOULD NOT make the DID document and [[ref: KERI event
-       stream]] resources unavailable at the location where they have been
+    1. A controller SHOULD NOT make the DID document and 
+       [[ref: KERI event stream]] resources unavailable at the location where they have been
        published.
         ::: informative Rationale for not removing DID files
         Removing the DID resources is considered to be a bad approach, as those resolving the DID
@@ -388,13 +393,13 @@ This section is normative.
    self-describing and terse.
 
 ::: informative Understanding key state and KSN
-To better understand the cryptographically verifiable data structures used,
+To better understand the [[ref: cryptographically verifiable]] data structures used,
 see the implementors guide description of the
 [KERI event stream chain of custody](#KERI-event-stream-chain-of-custody).
 To understand the KERI AID commands resulting in the
 [[ref: KERI Event Stream]] and the corresponding `did:webs` DID document see
-the original [[ref: did:webs Reference Implementation]]
-[getting started guide](https://github.com/GLEIF-IT/did-webs-resolver/blob/main/docs/getting_started.md).
+the original
+[did:webs Reference Implementation getting started guide](#DIDWEBS-REF-IMPL).
 
 In KERI the calculated values that result from processing the
 [[ref: KERI event stream]] are referred to as the "current key state" and
@@ -721,10 +726,10 @@ would result in a DID document with the following verification methods array:
    string containing a number that is greater than 1, or if it is an array
    containing fractionally weighted thresholds, then in addition to the
    verification methods generated according to the rules in the previous
-   sections, another [verification
-   method](https://w3c-ccg.github.io/verifiable-conditions/) with a type
-   of `ConditionalProof2022` MUST be generated in the DID document. This
-   verification method type is defined.
+   sections, another 
+   [verification method](https://w3c-ccg.github.io/verifiable-conditions/)
+   with a type of `ConditionalProof2022` MUST be generated in the DID document.
+   This verification method type is defined.
     1. It MUST be constructed according to the following rules:
         1. The `id` property of the verification method MUST be a relative
            DID URL and use the AID as the value of the fragment component,
@@ -1192,7 +1197,7 @@ DID document to a `did:webs` DID document.
 ::: informative Full Example
 
 To walk through a real-world example, please see the GETTING STARTED guide in
-the [[ref: did:webs Reference Implementation]] as it walks users through many
+[the did:webs Reference Implementation](#DIDWEBS-REF-IMPL) as it walks users through many
 did:webs related tasks (and associated KERI commands) to demonstrate how they
 work together.
 
@@ -1444,15 +1449,15 @@ document.
    [Verification Relationships](#verification-relationships).
 
 ::: informative KERI event references
-You can learn more about the inception event in the [[ref: KERI
-specification]] and you can see an example inception event. To learn about
+You can learn more about the inception event in the [KERI
+specification](#KSWG-KERI) and you can see an example inception event. To learn about
 future rotation key commitment, see the sections about
-[pre-rotation](#pre-rotation) and the KERI specification.
+[pre-rotation](#pre-rotation) and the [KERI specification](#KSWG-KERI).
 
-You can learn more about rotation events in the KERI specification and you
+You can learn more about rotation events in the [KERI specification](#KSWG-KERI) and you
 can see an example rotation event. To learn about future rotation key
 commitment, see the sections about [pre-rotation](#pre-rotation) and the
-[[ref: KERI specification]].
+[KERI specification](#KSWG-KERI).
 :::
 
 ### Delegation KERI event details
@@ -1468,7 +1473,7 @@ DID document.
 #### Delegation key state events
 
 1. All delegation relationships MUST start with a delegated inception event.
-1. Any change to the [[ref: Delegated inception event]] key state or
+1. Any change to the delegated inception event key state or
    delegated rotation event key state MUST be the result of a delegated
    rotation event.
 
@@ -1480,7 +1485,7 @@ Delegated [[ref: rotation event]]: Updates the delegated identifier
 commitment. Either the delegator or the delegate can end the delegation
 commitment.
 
-See the [[ref: KERI specification]] for an example of a delegated inception
+See the [KERI specification](#KSWG-KERI) for an example of a delegated inception
 and rotation events.
 :::
 
@@ -1682,12 +1687,14 @@ endpoint in its DID document as follows.
 1. When a delegator service endpoint is present, it MUST conform to the
    following requirements:
     1. The service `type` property MUST be set to `DelegatorOOBI`.
-    1. The service `id` property MUST be the [[ref: SAID]] of the seal (anchor
+    1. The service `id` property MUST be the [[ref: self-addressing identifier]]
+       ([[ref: SAID]]) of the seal (anchor
        block) in the delegator's [[ref: KEL]] that commits to the delegate's
-       [[ref: delegated inception event]].
-    1. The service `serviceEndpoint` property MUST be a valid [[ref: OOBI]]
-       URL that resolves to the delegator's AID.
-1. The delegator service endpoint enables verifiers to discover and validate
+       delegated inception event.
+    1. The service `serviceEndpoint` property MUST be a valid
+       [[ref: out-of-band introduction]] ([[ref: OOBI]]) URL that resolves to
+       the delegator's AID.
+1. The delegator service endpoint enables [[ref: verifiers]] to discover and validate
    the delegation relationship by retrieving the delegator's [[ref: KEL]].
 
 For example, a `did:webs` DID that is a delegated AID MUST include, in its
@@ -1717,8 +1724,8 @@ seal referred to by the `id` property.
 1. An AID controller SHALL specify the [[ref: designated aliases]] that will
    be listed in the `equivalentId` and `alsoKnownAs` properties by issuing a
    Designated aliases verifiable attestation as an ACDC.
-    1. This attestation MUST contain a set of [[ref: AID controlled
-       identifiers]] that the AID controller authorizes.
+    1. This attestation MUST contain a set of [[ref: AID controlled identifiers]]
+       that the AID controller authorizes.
     1. If the identifier is a `did:webs` identifier then it is truly
        equivalent and MUST be listed in the `equivalentId` property.
     1. If the identifier is a DID then it MUST be listed in the `alsoKnownAs` property.
@@ -1868,7 +1875,7 @@ did:webs:example.com:Ew-o5dU5WjDrxDBK4b4HrF82_rYb6MX6xsegjq4n0Y7M?transformKeys=
 #### `CesrKey` and `publicKeyCesr`
 
 This specification defines the following extensions to the DID document
-data model in accordance with the [[ref: DID Spec Registries]]:
+data model in accordance with the [DID Spec Registries](#W3C-DID-REGISTRIES):
 
 1. Extension verification method `type` `CesrKey` MAY be available in a
    `did:webs` DID document to express a public key encoded in [[ref: CESR]]
@@ -1939,8 +1946,8 @@ would result in a DID document with the following verification methods array:
 This section is normative.
 
 This section describes the support of the `did:webs` method for metadata,
-including [[ref: DID resolution metadata]] and [[ref: DID document
-metadata]]. This metadata is returned by a DID Resolver in addition to the
+including [[ref: DID resolution metadata]] and [[ref: DID document metadata]]. 
+This metadata is returned by a DID Resolver in addition to the
 DID document. Also see the [DID Resolution](https://w3c.github.io/did-resolution/)
 specification for further details.
 
@@ -1963,11 +1970,9 @@ version of the DID document that has been resolved.
 
 1. The `did:webs` versionId MUST be the sequence number (i.e. the `s`
    field) of the last event in the [[ref: KERI event stream]] that was used
-   to construct the DID document according to the rules in section [DID
-   Documents](#did-documents).
-1. If the DID parameter `versionId` (see section [Support for
-   `versionId`](#support-for-versionid)) was used when resolving the
-   `did:webs` DID, and if the DID Resolution process was successful, then
+   to construct the DID document according to the rules in section [DID Documents](#did-documents).
+1. If the DID parameter `versionId` (see section [Support for `versionId`](#support-for-versionid))
+   was used when resolving the `did:webs` DID, and if the DID Resolution process was successful, then
    this corresponding DID document metadata property MUST be guaranteed to
    be equal to the value of the DID parameter.
 
@@ -1997,9 +2002,8 @@ version of the DID document after the version that has been resolved.
    last one that was used to construct the DID document according to the
    rules in section [DID Documents](#did-documents).
 1. This DID document metadata property MUST be present if the DID
-   parameter `versionId` (see section [Support for
-   `versionId`](#support-for-versionid)) was used when resolving the
-   `did:webs` DID, and if the value of that DID parameter was not the
+   parameter `versionId` (see section [Support for `versionId`](#support-for-versionid))
+   was used when resolving the `did:webs` DID, and if the value of that DID parameter was not the
    sequence number of the last event in the KERI event stream.
 
 Example:
@@ -2030,11 +2034,10 @@ method itself.
 
 1. The `did:webs` `equivalentId` metadata property SHOULD contain a list of
    the controller AID [[ref: designated aliases]] `did:webs` DIDs that differ
-   in the [[ref: host]] and/or port portion of the [[ref: method-specific
-   identifier]] but share the same AID. Also see section [[ref: AID
-   controlled identifiers]].
-1. `equivalentId` depends on the controller AIDs array of [[ref: designated
-   aliases]]. A `did:webs` identifier MUST not verify unless it is found in
+   in the [[ref: host]] and/or port portion of the [[ref: method-specific identifier]]
+   but share the same AID. Also see section [[ref: AID controlled identifiers]].
+1. `equivalentId` depends on the controller AIDs array of [[ref: designated aliases]]. 
+   A `did:webs` identifier MUST not verify unless it is found in
    the `equivalentId` metadata that corresponds to the Designated aliases.
 
 > Note that [[ref: AID controlled identifiers]] like `did:web` and
@@ -2162,7 +2165,7 @@ various reasons.
 
 1. As with `did:web`, implementers of `did:webs` SHOULD consider how non-ASCII
    characters manifest in URLs and DIDs.
-    1. `did:webs` MUST follow the [[ref: DID-CORE]] identifier syntax which
+    1. `did:webs` MUST follow the [DID Core](#W3C-DID-CORE) identifier syntax which
        does not allow the direct representation of such characters in method
        name or method specific identifiers. This prevents a `did:webs` value
        from embodying a homograph attack.
@@ -2203,8 +2206,8 @@ signatures and other information in `did:webs`.
             1. The controller(s) of the AID for a `did:webs` identifier MAY use
                BADA-RUN for service end-points as discovery mechanisms.
     1. All data that does not need the security of being KEL backed nor
-       BADA-RUN SHOULD be served using _KERI Request Authentication
-       Mechanism_ ([[ref: KRAM]]).
+       BADA-RUN SHOULD be served using
+       _[[ref: KERI Request Authentication Mechanism]]_ ([[ref: KRAM]]).
         1. For a `did:webs` resolver to be trusted it SHOULD use KRAM to
            access the service endpoints providing KERI event streams for
            verification of the DID document.
@@ -2221,7 +2224,7 @@ to the above considerations.
 
 See the implementors guide for more details about KEL backed, BADA-RUN, and KRAM:
 
-* [[ref: On-Disk Storage]]
+* [On-Disk Storage](#on-disk-storage)
 * [Alignment of Information to Security Posture](#alignment-of-information-to-security-posture)
 * [Applying the concepts of KEL, BADA-RUN, and KRAM](#applying-the-concepts-of-kel)
 
@@ -2239,7 +2242,8 @@ Below we discuss privacy considerations related the KERI infrastructure.
 
 ### Surveillance
 
-In KERI, a robust witness network along with consistent witness rotation
+In KERI, a robust [[ref: witness]] network along with consistent [[ref: witness]]
+rotation
 provides protection from monitoring and association of an individual's
 activity inside a KERI network.
 
@@ -2270,7 +2274,8 @@ attribution.
 
 The root of trust for KERI identifiers is entropy and therefore offers no
 direct means of correlation.  In addition, KERI provides two modes of
-communication, direct mode and indirect mode.  Direct mode allows for
+communication, [[ref: direct mode]] and [[ref: indirect mode]]. [[ref: direct mode]]
+allows for
 pairwise (n-wise as well) relationships that can be used to establish
 private relationships.
 
@@ -2281,7 +2286,8 @@ See the KERI specification for
 
 The root of trust for KERI identifiers is entropy and therefore offers no
 direct means of identification.  In addition, KERI provides two modes of
-communication, direct mode and indirect mode.  Direct mode allows for
+communication, [[ref: direct mode]] and [[ref: indirect mode]]. [[ref: direct mode]]
+allows for
 pairwise (n-wise as well) relationships that can be used to establish
 private relationships.
 
@@ -2292,7 +2298,8 @@ See the KERI specification for
 
 The Key State made available in the metadata of this DID method is generally
 available and can be used by any party to retrieve and verify the state of
-the KERL for the given identifier.
+the [[ref: key event receipt log]] ([[ref: KERL]]) for the given
+[[ref: identifier]].
 
 ### Disclosure
 
@@ -2373,7 +2380,7 @@ transformation in the spec.
 ::: informative On-Disk Storage
 On-Disk Storage
 
-This section is informative: Both KEL backed data and [[ref: BADA-RUN]]
+This section is informative: Both [[ref: KEL backed data]] and [[ref: BADA-RUN]]
 security approaches are suitable for storing information on disk because both
 provide a link between the keystate and date-time on some data when a
 signature by the source of the data was created. [[ref: BADA-RUN]] is too
@@ -2513,9 +2520,9 @@ server by including an index (label: said) of the [[ref: SAIDs]] of the
 Generally the full featureset of KERI, ACDC, and CESR are needed for `did:webs` 
 though specific use cases may depend on a smaller subset of KERI and ACDC.
 
-[[ref: KERI]] means Key Event Receipt Infrastructure.
-[[ref: ACDC]] means Authentic Chained Data Containers.
-[[ref: CESR]] means Composable Event Streaming Representation.
+[[ref: KERI]] means [[ref: key event receipt infrastructure]].
+[[ref: ACDC]] means [[ref: authentic chained data container]].
+[[ref: CESR]] means [[ref: compact event streaming representation]].
 
 Full support of `did:webs` depends on the following KERI, ACDC, and CESR features:
 
@@ -2614,7 +2621,7 @@ KERI event stream to the DID Document properties compose the core of the
 did:webs resolver logic.  Understanding the optimal way to update and
 maintain the KERI event stream (publish static keri.cesr files, dynamically
 generate the keri.cesr resource, etc) is beyond the scope of the spec,
-but the [[ref: did:webs Reference Implementation]] of the resolver
+but the [did:webs Reference Implementation](#DIDWEBS-REF-IMPL) of the resolver
 demonstrate some of these techniques. The important concept is that the
 entire KERI event stream is used to produce and verify the DID document.
 :::
@@ -2625,7 +2632,7 @@ entire KERI event stream is used to produce and verify the DID document.
 This section is informative: Below is an example highlighting how verifiable
 data is anchored to a [[ref: KEL]] using a [[ref: TEL]]. We use this spec's
 [[ref: designated aliases]] feature as a real-world example. You can walk
-through this example in the [[ref: did:webs Reference Implementation]].
+through this example in the [did:webs Reference Implementation](#DIDWEBS-REF-IMPL).
 The attestation (self-issued credential) is as follows:
 
 ```json
@@ -2892,7 +2899,7 @@ events.
 
 ::: informative KERI Fundamentals
 
-[[ref: Key Event Receipt Infrastructure)]] is a protocol for managing
+[[ref: KERI]] is a protocol for managing
 cryptographic keys, identifiers, and associated verifiable data structures.
 KERI was first described in an
 [academic paper](https://arxiv.org/abs/1907.02143), and its
@@ -2906,8 +2913,9 @@ fundamentals and components of the KERI protocol that are related to the
 #### Autonomic Identifier (AID)
 
 An [[ref: autonomic identifier]] is a globally-unique persistent
-self-certifying identifier that serves as the primary root-of-trust of the
-KERI protocol. An AID is cryptographically bound to a [[ref: KEL]] that
+self-certifying [[ref: verifiable identifier]] that serves as the primary
+root-of-trust of the KERI protocol. An AID is cryptographically bound to a
+[[ref: KEL]] that
 determines the evolution of its [[ref: key state]] using the
 [[ref: pre-rotation]] mechanism. AIDs and the underlying KERI protocol, by
 themselves, satisfy most of the
@@ -2933,7 +2941,7 @@ in at least two important ways:
    [[ref: controller]], instead of an arbitrarily large collection updated by
    other participants in the network. This makes a KEL memory-efficient, fast,
    cheap, and trivially scalable.
-* It is fully [[ref: self-certifying]], meaning its correctness can be proved
+* It is fully self-certifying, meaning its correctness can be proved
    by direct inspection, without a distributed consensus algorithm or
    assumptions about trust in an external data source or its governance.
 
@@ -2985,7 +2993,7 @@ _next_ key and locks the attacker out again.
 
 #### Weighted Multisig
 
-The [[ref: KERI]] protocol supports weighted multi-signature scheme that
+The [[ref: KERI]] protocol supports a weighted [[ref: multi-signature]] scheme that
 allows for [conditional proof](#thresholds) in the
 [Verification Methods](#verification-methods). A multisig [[ref: AID]]
 distributes its control among multiple key holders. This includes simple
@@ -3031,8 +3039,9 @@ data that is deterministically bound to the [[ref: key event]] history in the
 [[ref: KEL]]. Transactions that are recorded in a TEL may include things
 like the issuance and revocation of verifiable credentials or the fact that
 listeners on various service endpoints started or stopped. Like KELs, TELs are
-self-certifying and may also be published by KERI witnesses to enhance
-discoverability and provide watcher networks the ability to detect duplicity.
+self-certifying and may also be published by KERI [[ref: witnesses]] to enhance
+discoverability and provide [[ref: watcher]] networks the ability to detect
+duplicity.
 For example, we demonstrate that in this spec in how we anchor
 [[ref: designated aliases]] as
 [verifiable data on a TEL](#verifiable-data-on-a-tel).
@@ -3050,8 +3059,7 @@ bridge between a web-centric DID method and lower-level IOT ecosystems.
 
 [[ref: KELs]] and [[ref: TELs]] of `did:webs` DIDs (i.e., AIDs) are included
 in the [[ref: KERI event streams]] for verification of the DID documents.
-The KERI event streams use [[ref: Composable Event Streaming Representation
-([[ref: CESR]])]] for data serialization. Although CESR is a deep subject all
+The KERI event streams use [[ref: CESR]] for data serialization. Although CESR is a deep subject all
 by itself, at a high level, it has two essential properties:
 
 * **Content in CESR is self-describing and supports serialization as
@@ -3072,7 +3080,7 @@ by itself, at a high level, it has two essential properties:
    This means they are very terse and there is no need for the variety of
    representation methods that create interoperability challenges in other
    DID methods (`publicKeyJwk` versus `publicKeyMultibase` versus other; see
-   the verification material section of the [[ref: DID specification]].
+   the verification material section of the [DID specification](#W3C-DID-CORE).
 
 Despite this rich set of features, KERI imposes only light dependencies on
 developers. The cryptography it uses is familiar and battle-hardened, exactly
@@ -3089,38 +3097,56 @@ and python.
 
 ### Normative section
 
-[[iref: Data Integrity Proof]]
-[[iref: JSON Serialization]]
-[[iref: multiformat multihash]]
-[[iref: RFC1035]]
-[[iref: RFC1123]]
-[[iref: RFC2181]]
+<a id="DataIntegrityProof"></a>. W3C, [Data Integrity Proofs](https://www.w3.org/TR/vc-data-model/#data-integrity-proofs).
+
+<a id="JSONSerialization"></a>. IETF, [RFC 7515 Section 3.2: JWS JSON Serialization](https://datatracker.ietf.org/doc/html/rfc7515#section-3.2).
+
+<a id="MultiformatMultihash"></a>. Multiformats, [multihash](https://github.com/multiformats/multihash).
+
+<a id="RFC1035"></a>. IETF, [RFC 1035: Domain Names - Implementation and Specification](https://www.rfc-editor.org/info/rfc1035).
+
+<a id="RFC1123"></a>. IETF, [RFC 1123: Requirements for Internet Hosts - Application and Support](https://datatracker.ietf.org/doc/html/rfc1123).
+
+<a id="RFC2181"></a>. IETF, [RFC 2181: Clarifications to the DNS Specification](https://www.rfc-editor.org/info/rfc2181).
 
 #### Trust-over-IP
 
-[[iref: ACDC specification]]
-[[iref: CESR specification]]
-[[iref: CESR Proof Signatures]]
-[[iref: Key Event Receipt Infrastructure]]
-[[iref: ACDC IPEX]]
+<a id="KSWG-ACDC"></a>. Trust over IP, [Authentic Chained Data Containers (ACDC) specification](https://trustoverip.github.io/kswg-acdc-specification/).
+
+<a id="KSWG-CESR"></a>. Trust over IP, [Composable Event Streaming Representation (CESR)](https://trustoverip.github.io/kswg-cesr-specification/).
+
+<a id="KSWG-CESR-PROOF"></a>. Trust over IP, [CESR Proof Signatures specification](https://trustoverip.github.io/tswg-cesr-proof-specification/draft-pfeairheller-cesr-proof.html).
+
+<a id="KSWG-KERI"></a>. Trust over IP, [Key Event Receipt Infrastructure (KERI) specification](https://trustoverip.github.io/kswg-keri-specification/).
+
+<a id="KSWG-ACDC-IPEX"></a>. Trust over IP, [ACDC IPEX validation](https://trustoverip.github.io/kswg-acdc-specification/#ipex-validation).
 
 #### W3C
 
-[[iref: didweb specification]]
-[[iref: Decentralized Identifiers]]
-[[iref: DID spec registries]]
-[[iref: DID URL path]]
-[[iref: Verifiable Credentials Data Model]]
-[[iref: verifiable presentation]]
+<a id="W3C-DID-WEB"></a>. W3C CCG, [did:web Method Specification](https://w3c-ccg.github.io/did-method-web/).
+
+<a id="W3C-DID-CORE"></a>. W3C, [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-1.0/).
+
+<a id="W3C-DID-REGISTRIES"></a>. W3C, [DID Spec Registries](https://www.w3.org/TR/did-extensions/).
+
+<a id="W3C-DID-PATH"></a>. W3C, [DID URL path](https://www.w3.org/TR/did-core/#path).
+
+<a id="W3C-VCDM"></a>. W3C, [Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model/).
+
+<a id="W3C-VP"></a>. W3C, [Verifiable Presentations](https://www.w3.org/TR/vc-data-model/#presentations-0).
 
 ### Informative section
 
-::: informative 
-[[iref: did:webs Reference Implementation]]
-[[iref: Overlay Capture Architecture]]
-[[iref: rfc5895]]
-[[iref: StatusList2021]]
-[[iref: UTS-46]]
-[[iref: W3C VC Rendering Methods specification]]
+::: informative
+<a id="DIDWEBS-REF-IMPL"></a>. GLEIF, [did:webs Reference Implementation](https://github.com/GLEIF-IT/did-webs-resolver) and its [getting started guide](https://github.com/GLEIF-IT/did-webs-resolver/blob/main/docs/getting_started.md).
 
+<a id="OCA"></a>. Hyperledger Aries RFCs, [Overlay Capture Architecture](https://github.com/hyperledger/aries-rfcs/blob/main/features/0755-oca-for-aries/README.md).
+
+<a id="RFC5895"></a>. IETF, [RFC 5895: Mapping Characters for IDNA2008](https://www.rfc-editor.org/info/rfc5895).
+
+<a id="StatusList2021"></a>. W3C CCG, [VC Status List 2021](https://github.com/w3c-ccg/vc-status-list-2021).
+
+<a id="UTS46"></a>. Unicode Consortium, [UTS #46: Unicode IDNA Compatibility Processing](https://unicode.org/reports/tr46/).
+
+<a id="W3C-VC-RENDER"></a>. W3C CCG, [VC Rendering Methods specification](https://w3c-ccg.github.io/vc-render-method/).
 :::
