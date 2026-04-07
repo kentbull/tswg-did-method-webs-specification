@@ -1009,8 +1009,13 @@ This section is normative.
 
 ::: informative Service endpoint mapping and metadata
 For additional details about the mapping between KERI events and the Service
-Endpoints in the DID Document, see
-[Service Endpoint KERI events](#service-endpoint-event-details).
+Endpoints in the DID Document, such as 
+- witness,
+- mailbox,
+- delegator OOBI, and 
+- agent service endpoints, 
+
+see [Service Endpoint KERI events](#service-endpoint-event-details).
 
 It is important to note that DID document service endpoints are different
 than the KERI service endpoints detailed in
@@ -1081,20 +1086,24 @@ at rest and versioned to ensure only the latest signed data is available.
 
 This section is normative.
 
-The DID document that exists as a resource on a webserver is compatible with
-the `did:web` DID method and therefore necessarily different from a
-`did:webs` DID document with regard to the `id`, `controller`, and
-`alsoKnownAs` properties.
+When transforming a `did:webs` DID document to the corresponding `did:web` DID document
+the following rules determine what MUST change to make a valid, transformed `did:web`
+version of the `did:webs` DID document. 
 
-1. To transform the `did:webs` form of the DID Document to a `did:web` the
-   transformation MUST do the following:
-    1. In the values of the top-level `id` and `controller` properties of
-       the DID document, the transformation MUST replace the `did:webs`
-       prefix string with `did:web`.
-    1. In the value of the top-level `alsoKnownAs` property, the
-       transformation MUST replace the entry that is now the new value of the
-       `id` property (using `did:web`) with the old value of the `id`
-       property (using `did:webs`).
+::: informative properties affected by transformation
+This transformation primarily affects 
+the `id` and `controller` properties, and, when authorized with a designated aliases
+ACDC, the `alsoKnownAs` properties.
+:::
+
+1. Transformation of the `did:webs` form of the DID Document to a `did:web` DID document
+   MUST do the following:
+    1. The top-level `id` and `controller` property values of the DID document 
+       MUST replace the `did:webs` prefix string with the `did:web` prefix.
+    1. If authorized by designated alias ACDC, the top-level `alsoKnownAs` property 
+       containing a `did:web` DID MUST replace that `did:web` entry with the 
+       authorized `did:webs` DID corresponding to the old `did:webs` value from
+       the prior `id` and `controller` field values (`did:webs` DID).
     1. All other content of the DID document MUST not be modified.
 
     For example, this transformation is used during the [Create](#create) DID
@@ -1158,18 +1167,24 @@ the `did:web` DID method and therefore necessarily different from a
 
 This section is normative.
 
-This section defines an inverse transformation algorithm from a `did:web`
-DID document to a `did:webs` DID document.
+When transforming a `did:web` DID document to the corresponding `did:webs` 
+DID document the following rules determine what MUST change to make a valid, 
+transformed `did:webs` version of the `did:web` DID document.
 
-1. Given a `did:web` DID document, a transformation to a `did:webs` DID
-   document MUST have the following differences:
-    1. In the values of the top-level `id` and `controller` properties of
-       the DID document, the transformation MUST replace the `did:web`
-       prefix string with `did:webs`.
-    1. The value of the top-level `alsoKnownAs` property MUST replace the
-       entry that is now the new value of the `id` property (using
-       `did:webs`) with the old value of the `id` property (using
-       `did:web`).
+::: informative properties affected by transformation
+This transformation primarily affects
+the `id` and `controller` properties, and, when authorized with a designated 
+aliases ACDC, the `alsoKnownAs` properties.
+:::
+
+1. Transformation of the `did:web` DID document to a `did:webs` DID document 
+   MUST do the following:
+    1. The top-level `id` and `controller` property values of the DID document
+       MUST replace the `did:web` prefix string with the `did:webs` prefix.
+    1. The top-level `alsoKnownAs` property
+       containing a `did:webs` DID MUST replace that `did:webs` entry with the
+       authorized `did:web` DID corresponding to the old `did:web` value from
+       the prior `id` and `controller` field values (`did:web` DID).
     1. All other content of the DID document MUST not be modified.
 1. A `did:webs` resolver MUST use this transformation during the
    [Read (Resolve)](#read-resolve) DID method operation.
@@ -1657,6 +1672,49 @@ Resulting mailbox service entry:
 }
 ```
 
+#### Delegator Service Endpoint
+
+If the first event in the [[ref: KEL]] for a `did:webs` DID is a delegated
+inception event of type `dip` then it MUST include a delegator service
+endpoint in its DID document as follows.
+
+1. A delegated AID MUST include a service endpoint in its DID document that
+   references its delegator.
+1. When a delegator service endpoint is present, it MUST conform to the
+   following requirements:
+    1. The service `type` property MUST be set to `DelegatorOOBI`.
+    1. The service `id` property MUST be the [[ref: self-addressing identifier]]
+       ([[ref: SAID]]) of the seal (anchor
+       block) in the delegator's [[ref: KEL]] that commits to the delegate's
+       delegated inception event.
+    1. The service `serviceEndpoint` property MUST be a valid
+       [[ref: out-of-band introduction]] ([[ref: OOBI]]) URL that resolves to
+       the delegator's AID.
+1. The delegator service endpoint enables [[ref: verifiers]] to discover and validate
+   the delegation relationship by retrieving the delegator's [[ref: KEL]].
+
+For example, a `did:webs` DID that is a delegated AID MUST include, in its
+`service` array of the DID document, a delegator service endpoint similar
+to the following:
+
+```json
+{
+  "service": [{
+    "id": "EDEvmKvGFjuip-J5dDw7sbVHxXA22s-pBO764CivsFt4",
+    "type": "DelegatorOOBI",
+    "serviceEndpoint": "http://keria:3902/oobi/ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe"
+  }]
+}
+```
+
+::: informative Delegator endpoint example explanation
+In this example, the `id` field contains the [[ref: SAID]] of the seal in the
+delegator's [[ref: KEL]] that anchors the delegation commitment, and the
+`serviceEndpoint` provides the [[ref: OOBI]] URL to retrieve the delegator's
+key state so that the delegator's KEL may be searched for the delegation
+seal referred to by the `id` property.
+:::
+
 #### Agent Service Endpoint
 
 1. An agent service endpoint is produced when (1) an Endpoint Role
@@ -1713,49 +1771,6 @@ Resulting agent service entry:
   }
 }
 ```
-
-#### Delegator Service Endpoint
-
-If the first event in the [[ref: KEL]] for a `did:webs` DID is a delegated
-inception event of type `dip` then it MUST include a delegator service
-endpoint in its DID document as follows.
-
-1. A delegated AID MUST include a service endpoint in its DID document that
-   references its delegator.
-1. When a delegator service endpoint is present, it MUST conform to the
-   following requirements:
-    1. The service `type` property MUST be set to `DelegatorOOBI`.
-    1. The service `id` property MUST be the [[ref: self-addressing identifier]]
-       ([[ref: SAID]]) of the seal (anchor
-       block) in the delegator's [[ref: KEL]] that commits to the delegate's
-       delegated inception event.
-    1. The service `serviceEndpoint` property MUST be a valid
-       [[ref: out-of-band introduction]] ([[ref: OOBI]]) URL that resolves to
-       the delegator's AID.
-1. The delegator service endpoint enables [[ref: verifiers]] to discover and validate
-   the delegation relationship by retrieving the delegator's [[ref: KEL]].
-
-For example, a `did:webs` DID that is a delegated AID MUST include, in its
-`service` array of the DID document, a delegator service endpoint similar
-to the following:
-
-```json
-{
-  "service": [{
-    "id": "EDEvmKvGFjuip-J5dDw7sbVHxXA22s-pBO764CivsFt4",
-    "type": "DelegatorOOBI",
-    "serviceEndpoint": "http://keria:3902/oobi/ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe"
-  }]
-}
-```
-
-::: informative Delegator endpoint example explanation
-In this example, the `id` field contains the [[ref: SAID]] of the seal in the
-delegator's [[ref: KEL]] that anchors the delegation commitment, and the
-`serviceEndpoint` provides the [[ref: OOBI]] URL to retrieve the delegator's
-key state so that the delegator's KEL may be searched for the delegation
-seal referred to by the `id` property.
-:::
 
 ### Designated Aliases
 
