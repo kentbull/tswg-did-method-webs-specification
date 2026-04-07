@@ -279,6 +279,8 @@ generated and hosted at the URLs specified in the following rules.
        defined.
     1. MUST create a KERI AID and add it as the last element of the web URL
        for the DID.
+    1. MUST authorize the full `did:webs` identifier as a designated alias ACDC anchored to the KERI AID (see [Method-Specific Identifier](#method-specific-identifier)).
+    1. If desired, a `did:web` form of the identifier MAY be authorized in the same manner.
     1. MUST add the appropriate KERI events to the AID's KERI logs that will
        correspond to properties of the DID document, such as verification
        methods and service endpoints.
@@ -494,7 +496,7 @@ This section is normative.
    See the [[ref: designated aliases]] section for information on how an AID
    anchors the `alsoKnownAs` identifiers to their [[ref: KERI event stream]].
    :::
-   1. As long as the identifier is resolvable, a designated aliases ACDC
+   1. As long as the identifier is resolvable, a designated alias ACDC
       containing a given identifier MUST always be present in the `keri.cesr`
       stream in order for any identifier to be included in the `alsoKnownAs`
       section of a `did:webs` DID document.
@@ -512,9 +514,9 @@ This section is normative.
       :::
 
 1. The `did:webs` version of the DID document MAY include the `did:web`
-   version of the DID as an `alsoKnownAs` identifier, provided that it is a valid, un-revoked designated aliases ACDC present in the `keri.cesr` stream.
+   version of the DID as an `alsoKnownAs` identifier, provided that there is a valid, un-revoked designated aliases ACDC present in the `keri.cesr` stream.
 1. The `did:web` version of the DID document MUST include the `did:webs`
-   version of the DID as an `alsoKnownAs` identifier.
+   version of the DID as an `alsoKnownAs` identifier, meaning it must also be in a valid, un-revoked designated aliases ACDC present in the keri.cesr stream.
 1. In order for the `did:webs` DID document to be valid, the `keri.cesr`
    stream MUST contain at least ONE designated aliases ACDC in which the DNS
    name and path for the `did:webs` identifier are committed to for both the
