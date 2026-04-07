@@ -1142,7 +1142,7 @@ aliases ACDC, the `alsoKnownAs` properties.
    MUST do the following:
     1. The top-level `id` and `controller` property values of the DID document
        MUST replace the `did:web` prefix string with the `did:webs` prefix.
-    1. If authorized by designated alias ACDC, the top-level `alsoKnownAs` property
+    1. The top-level `alsoKnownAs` property
        containing a `did:webs` DID MUST replace that `did:webs` entry with the
        authorized `did:web` DID corresponding to the old `did:web` value from
        the prior `id` and `controller` field values (`did:web` DID).
