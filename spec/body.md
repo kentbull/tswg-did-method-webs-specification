@@ -463,8 +463,7 @@ This section is normative.
    `did:webs` DID that is being created or resolved.
 1. The value from the `i` field of the key state notice MUST be the value
    after the last `:` in the [[ref: method-specific identifier]] ([[ref: MSI]])
-   of the `did:webs` DID, per section [Method-Specific Identifier]
-   (#method-specific-identifier).
+   of the `did:webs` DID, per section [Method-Specific Identifier](#method-specific-identifier).
 
 ```json
 {
@@ -512,14 +511,10 @@ This section is normative.
       and unrevoked at that time.
       :::
 
-1. The `did:webs` version of the DID document MUST include the `did:web`
-   version of the DID as an `alsoKnownAs` identifier, meaning it must also be
-   in a valid, un-revoked designated aliases ACDC present in the `keri.cesr`
-   stream.
+1. The `did:webs` version of the DID document MAY include the `did:web`
+   version of the DID as an `alsoKnownAs` identifier, provided that it is a valid, un-revoked designated aliases ACDC present in the `keri.cesr` stream.
 1. The `did:web` version of the DID document MUST include the `did:webs`
-   version of the DID as an `alsoKnownAs` identifier, meaning it must also be
-   in a valid, un-revoked designated aliases ACDC present in the `keri.cesr`
-   stream.
+   version of the DID as an `alsoKnownAs` identifier.
 1. In order for the `did:webs` DID document to be valid, the `keri.cesr`
    stream MUST contain at least ONE designated aliases ACDC in which the DNS
    name and path for the `did:webs` identifier are committed to for both the
@@ -1027,8 +1022,7 @@ than the KERI service endpoints detailed in
 
 1. KERI service endpoints roles beyond `witness` SHOULD be defined using
    Location Scheme and Endpoint Authorization records in KERI. See the
-   [KERI specification]
-   (<https://trustoverip.github.io/kswg-keri-specification/#oobi-url-iurl>)
+   [KERI specification](<https://trustoverip.github.io/kswg-keri-specification/#oobi-url-iurl>)
    for more information about KERI roles.
 
 ::: informative BADA-RUN and service endpoints
@@ -1502,8 +1496,7 @@ In did:webs, KERI-derived service endpoints are defined by **Location Scheme**
 [[ref: KERI event stream]]. Location Scheme records declare URL(s) for a
 given scheme for an AID; Endpoint Role Authorization relates a role (e.g.
 mailbox, agent) of one AID to another. See
-[KERI Service Endpoints as DID Document Metadata]
-(#keri-service-endpoints-as-did-document-metadata).
+[KERI Service Endpoints as DID Document Metadata](#keri-service-endpoints-as-did-document-metadata).
 
 When the event stream (or equivalent key state and endpoint data) for a
 `did:webs` DID establishes a witness, mailbox, or agent the DID document
