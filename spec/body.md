@@ -714,7 +714,50 @@ would result in a DID document with the following verification methods array:
     }
   ]
 ```
+#### Secp256r1
 
+1. Secp256r1 public keys MUST be converted to a verification method with a
+   type of `JsonWebKey` and `publicKeyJwk` property whose value is generated
+   by decoding the [[ref: CESR]] representation of the public key out of the
+   KEL and into its binary form (minus the leading '1AAI' or '1AAJ' CESR
+   codes) and generating the corresponding representation of the key in
+   JSON Web Key form.
+
+For example, a KERI AID with only the following inception event in its KEL:
+
+```json
+{
+  "v": "KERI10JSON0001ad_",
+  "t": "icp",
+  "d": "EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2",
+  "i": "EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2",
+  "s": "0",
+  "kt": "1",
+  "k": [
+    "1AAIAmbFVu-Wf8NCd63B9V0zsy7EgB_ocX2_n_Nh1FCmgF0Y",
+  ]
+  // ...
+}
+```
+
+would result in a DID document with the following verification methods array:
+
+```json
+  "verificationMethod": [
+    {
+      "id": "#1AAIAmbFVu-Wf8NCd63B9V0zsy7EgB_ocX2_n_Nh1FCmgF0Y",
+      "type": "JsonWebKey",
+      "controller": "did:webs:example.com:EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2",
+      "publicKeyJwk": {
+        "kid": "1AAIAmbFVu-Wf8NCd63B9V0zsy7EgB_ocX2_n_Nh1FCmgF0Y",
+        "kty": "EC",
+        "crv": "secp256r1",
+        "x": "ZsVW75Z_w0J3rcH1XTOzLsSAH-hxfb-Q82HUUKaAXRg",
+        "y": "Lu6Uw785U3K05D-NPNoUInHPNUz9cGqWwjKjm5KL8FI"
+      }
+    }
+  ]
+```
 #### Thresholds
 
 1. If the current signing keys threshold (the value of the `kt` field) is a
