@@ -1100,10 +1100,7 @@ ACDC, the `alsoKnownAs` properties.
    MUST do the following:
     1. The top-level `id` and `controller` property values of the DID document 
        MUST replace the `did:webs` prefix string with the `did:web` prefix.
-    1. If authorized by designated alias ACDC, the top-level `alsoKnownAs` property 
-       containing a `did:web` DID MUST replace that `did:web` entry with the 
-       authorized `did:webs` DID corresponding to the old `did:webs` value from
-       the prior `id` and `controller` field values (`did:webs` DID).
+    1. If authorized by a designated alias ACDC, the `did:webs` identifier contained in the top-level `alsonKnownAs` property MUST be replaced with the corresponding, authorized, `did:web` identifier (the same `did:web` identifier formerly contained in the `id` and `controller` fields.)
     1. All other content of the DID document MUST not be modified.
 
     For example, this transformation is used during the [Create](#create) DID
@@ -1181,10 +1178,7 @@ aliases ACDC, the `alsoKnownAs` properties.
    MUST do the following:
     1. The top-level `id` and `controller` property values of the DID document
        MUST replace the `did:web` prefix string with the `did:webs` prefix.
-    1. The top-level `alsoKnownAs` property
-       containing a `did:webs` DID MUST replace that `did:webs` entry with the
-       authorized `did:web` DID corresponding to the old `did:web` value from
-       the prior `id` and `controller` field values (`did:web` DID).
+    1. The `did:web` identifier contained in the top-level `alsonKnownAs` property MUST be replaced with the corresponding `did:webs` identifier (the same `did:webs` identifier formerly contained in the `id` and `controller` fields.)
     1. All other content of the DID document MUST not be modified.
 1. A `did:webs` resolver MUST use this transformation during the
    [Read (Resolve)](#read-resolve) DID method operation.
