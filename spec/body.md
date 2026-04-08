@@ -989,6 +989,45 @@ relationship in the DID document.
 1. References to verification methods in the DID document MUST use the
    relative form of the identifier, e.g., `"authentication": ["#<identifier>"]`.
 
+For example, a KERI AID with only the following inception event in its KEL:
+
+```json
+{
+  "v":"KERI10JSON00012b_",
+  "t":"icp",
+  "d":"ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
+  "i":"ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe",
+  "s":"0",
+  "kt":"1",
+  "k":["DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"],
+  // ...
+}
+```
+
+would result in a DID document with the following verification methods array and verification relationships:
+
+```json
+"verificationMethod": [
+  {
+    "id": "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr", 
+    "type": "JsonWebKey", 
+    "controller": "did:webs:did-webs-service%3a7676:ENro7uf0ePmiK3jdTo2YCdXLqW7z7xoP6qhhBou6gBLe", 
+    "publicKeyJwk": {
+      "kid": "DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr", 
+      "kty": "OKP", 
+      "crv": "Ed25519", 
+      "x": "evT4j6Yw3uHpwsw5NEmSR8-4x3S-BA-s6Thjd51oeOs"
+      }
+  }
+],
+"authentication": [
+  "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+],
+"assertionMethod": [
+  "#DHr0-I-mMN7h6cLMOTRJkkfPuMd0vgQPrOk4Y3edaHjr"
+]
+```
+
 ::: informative Use of private keys and key agreement
 Private keys of a KERI AID can be used to sign a variety of data. This
 includes but is not limited to logging into a website, challenge-response
