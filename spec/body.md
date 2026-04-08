@@ -279,6 +279,8 @@ generated and hosted at the URLs specified in the following rules.
        defined.
     1. MUST create a KERI AID and add it as the last element of the web URL
        for the DID.
+    1. MUST authorize the full `did:webs` identifier as a designated alias ACDC anchored to the KERI AID (see [Method-Specific Identifier](#method-specific-identifier)).
+    1. If desired, a `did:web` form of the identifier MAY be authorized in the same manner.
     1. MUST add the appropriate KERI events to the AID's KERI logs that will
        correspond to properties of the DID document, such as verification
        methods and service endpoints.
@@ -463,8 +465,7 @@ This section is normative.
    `did:webs` DID that is being created or resolved.
 1. The value from the `i` field of the key state notice MUST be the value
    after the last `:` in the [[ref: method-specific identifier]] ([[ref: MSI]])
-   of the `did:webs` DID, per section [Method-Specific Identifier]
-   (#method-specific-identifier).
+   of the `did:webs` DID, per section [Method-Specific Identifier](#method-specific-identifier).
 
 ```json
 {
@@ -495,7 +496,7 @@ This section is normative.
    See the [[ref: designated aliases]] section for information on how an AID
    anchors the `alsoKnownAs` identifiers to their [[ref: KERI event stream]].
    :::
-   1. As long as the identifier is resolvable, a designated aliases ACDC
+   1. As long as the identifier is resolvable, a designated alias ACDC
       containing a given identifier MUST always be present in the `keri.cesr`
       stream in order for any identifier to be included in the `alsoKnownAs`
       section of a `did:webs` DID document.
@@ -512,14 +513,10 @@ This section is normative.
       and unrevoked at that time.
       :::
 
-1. The `did:webs` version of the DID document MUST include the `did:web`
-   version of the DID as an `alsoKnownAs` identifier, meaning it must also be
-   in a valid, un-revoked designated aliases ACDC present in the `keri.cesr`
-   stream.
+1. The `did:webs` version of the DID document MAY include the `did:web`
+   version of the DID as an `alsoKnownAs` identifier, provided that there is a valid, un-revoked designated aliases ACDC present in the `keri.cesr` stream.
 1. The `did:web` version of the DID document MUST include the `did:webs`
-   version of the DID as an `alsoKnownAs` identifier, meaning it must also be
-   in a valid, un-revoked designated aliases ACDC present in the `keri.cesr`
-   stream.
+   version of the DID as an `alsoKnownAs` identifier, meaning it must also be in a valid, un-revoked designated aliases ACDC present in the keri.cesr stream.
 1. In order for the `did:webs` DID document to be valid, the `keri.cesr`
    stream MUST contain at least ONE designated aliases ACDC in which the DNS
    name and path for the `did:webs` identifier are committed to for both the
@@ -719,7 +716,50 @@ would result in a DID document with the following verification methods array:
     }
   ]
 ```
+#### Secp256r1
 
+1. Secp256r1 public keys MUST be converted to a verification method with a
+   type of `JsonWebKey` and `publicKeyJwk` property whose value is generated
+   by decoding the [[ref: CESR]] representation of the public key out of the
+   KEL and into its binary form (minus the leading '1AAI' or '1AAJ' CESR
+   codes) and generating the corresponding representation of the key in
+   JSON Web Key form.
+
+For example, a KERI AID with only the following inception event in its KEL:
+
+```json
+{
+  "v": "KERI10JSON0001ad_",
+  "t": "icp",
+  "d": "EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2",
+  "i": "EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2",
+  "s": "0",
+  "kt": "1",
+  "k": [
+    "1AAIAmbFVu-Wf8NCd63B9V0zsy7EgB_ocX2_n_Nh1FCmgF0Y",
+  ]
+  // ...
+}
+```
+
+would result in a DID document with the following verification methods array:
+
+```json
+  "verificationMethod": [
+    {
+      "id": "#1AAIAmbFVu-Wf8NCd63B9V0zsy7EgB_ocX2_n_Nh1FCmgF0Y",
+      "type": "JsonWebKey",
+      "controller": "did:webs:example.com:EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2",
+      "publicKeyJwk": {
+        "kid": "1AAIAmbFVu-Wf8NCd63B9V0zsy7EgB_ocX2_n_Nh1FCmgF0Y",
+        "kty": "EC",
+        "crv": "secp256r1",
+        "x": "ZsVW75Z_w0J3rcH1XTOzLsSAH-hxfb-Q82HUUKaAXRg",
+        "y": "Lu6Uw785U3K05D-NPNoUInHPNUz9cGqWwjKjm5KL8FI"
+      }
+    }
+  ]
+```
 #### Thresholds
 
 1. If the current signing keys threshold (the value of the `kt` field) is a
@@ -1032,8 +1072,7 @@ than the KERI service endpoints detailed in
 
 1. KERI service endpoints roles beyond `witness` SHOULD be defined using
    Location Scheme and Endpoint Authorization records in KERI. See the
-   [KERI specification]
-   (<https://trustoverip.github.io/kswg-keri-specification/#oobi-url-iurl>)
+   [KERI specification](<https://trustoverip.github.io/kswg-keri-specification/#oobi-url-iurl>)
    for more information about KERI roles.
 
 ::: informative BADA-RUN and service endpoints
@@ -1061,10 +1100,7 @@ ACDC, the `alsoKnownAs` properties.
    MUST do the following:
     1. The top-level `id` and `controller` property values of the DID document 
        MUST replace the `did:webs` prefix string with the `did:web` prefix.
-    1. If authorized by designated alias ACDC, the top-level `alsoKnownAs` property 
-       containing a `did:web` DID MUST replace that `did:web` entry with the 
-       authorized `did:webs` DID corresponding to the old `did:webs` value from
-       the prior `id` and `controller` field values (`did:webs` DID).
+    1. If authorized by a designated alias ACDC, the `did:webs` identifier contained in the top-level `alsonKnownAs` property MUST be replaced with the corresponding, authorized, `did:web` identifier (the same `did:web` identifier formerly contained in the `id` and `controller` fields.)
     1. All other content of the DID document MUST not be modified.
 
     For example, this transformation is used during the [Create](#create) DID
@@ -1142,10 +1178,7 @@ aliases ACDC, the `alsoKnownAs` properties.
    MUST do the following:
     1. The top-level `id` and `controller` property values of the DID document
        MUST replace the `did:web` prefix string with the `did:webs` prefix.
-    1. The top-level `alsoKnownAs` property
-       containing a `did:webs` DID MUST replace that `did:webs` entry with the
-       authorized `did:web` DID corresponding to the old `did:web` value from
-       the prior `id` and `controller` field values (`did:web` DID).
+    1. The `did:web` identifier contained in the top-level `alsonKnownAs` property MUST be replaced with the corresponding `did:webs` identifier (the same `did:webs` identifier formerly contained in the `id` and `controller` fields.)
     1. All other content of the DID document MUST not be modified.
 1. A `did:webs` resolver MUST use this transformation during the
    [Read (Resolve)](#read-resolve) DID method operation.
@@ -1517,8 +1550,7 @@ In did:webs, KERI-derived service endpoints are defined by **Location Scheme**
 [[ref: KERI event stream]]. Location Scheme records declare URL(s) for a
 given scheme for an AID; Endpoint Role Authorization relates a role (e.g.
 mailbox, agent) of one AID to another. See
-[KERI Service Endpoints as DID Document Metadata]
-(#keri-service-endpoints-as-did-document-metadata).
+[KERI Service Endpoints as DID Document Metadata](#keri-service-endpoints-as-did-document-metadata).
 
 When the event stream (or equivalent key state and endpoint data) for a
 `did:webs` DID establishes a witness, mailbox, or agent the DID document
