@@ -1332,6 +1332,7 @@ resulting generated DID document. These documents were generated for the
   }
 ...
 {
+  // series of events establishing KERI agent at http://foo.example.com:3901/
   "v": "KERI10JSON00013a_",
   "t": "ixn",
   "d": "Ek48ahzTIUA1ynJIiRd3H0WymilgqDbj8zZp4zzrad-w",
